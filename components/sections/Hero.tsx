@@ -27,8 +27,8 @@ export function Hero() {
   const bgX = useTransform(x, [-1, 1], [60, -60]);
   const bgY = useTransform(y, [-1, 1], [60, -60]);
 
-  const figX = useTransform(x, [-1, 1], [-25, 25]);
-  const figY = useTransform(y, [-1, 1], [-15, 15]);
+  const figX = useTransform(x, [-1, 1], [-45, 45]);
+  const figY = useTransform(y, [-1, 1], [-28, 28]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = ref.current?.getBoundingClientRect();
