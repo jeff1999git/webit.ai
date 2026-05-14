@@ -77,7 +77,7 @@ export function Hero() {
 
         {/* woman — staggered entrance then continuous float */}
         <motion.div
-          className="absolute left-0 top-[2%]"
+          className="absolute left-0 top-[12%]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: ELASTIC }}
@@ -95,7 +95,7 @@ export function Hero() {
 
         {/* man — slightly later entrance, different float rhythm */}
         <motion.div
-          className="absolute right-0 top-[24%]"
+          className="absolute right-0 top-[34%]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.55, ease: ELASTIC }}
