@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { DURATION, EASE } from "@/lib/animation";
 import { Glitter } from "@/components/animations/Glitter";
+import { DaVinciLines } from "@/components/animations/DaVinciLines";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -58,6 +59,9 @@ export function Hero() {
 
       {/* overlay */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/55" />
+
+      {/* Da Vinci geometric lines */}
+      <DaVinciLines />
 
       {/* glitter particles */}
       <Glitter />

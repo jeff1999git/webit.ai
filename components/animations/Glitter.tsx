@@ -84,7 +84,7 @@ export function Glitter({ count = 70 }: { count?: number }) {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
+      className="absolute inset-0 w-full h-full pointer-events-none z-[2]"
     />
   );
 }
