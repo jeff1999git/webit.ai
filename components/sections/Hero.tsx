@@ -1,26 +1,61 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { DURATION, EASE } from "@/lib/animation";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  // Smooth spring follow
+  const x = useSpring(rawX, { stiffness: 60, damping: 20, mass: 1 });
+  const y = useSpring(rawY, { stiffness: 60, damping: 20, mass: 1 });
+
+  // Map mouse position to a subtle image shift (±20px)
+  const bgX = useTransform(x, [-1, 1], [20, -20]);
+  const bgY = useTransform(y, [-1, 1], [20, -20]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    // Normalize to -1 → 1
+    rawX.set((e.clientX - rect.left) / rect.width * 2 - 1);
+    rawY.set((e.clientY - rect.top) / rect.height * 2 - 1);
+  };
+
+  const handleMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+  };
+
   return (
     <section
+      ref={ref}
       id="hero"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden isolate"
     >
-      {/* bg-layer: image */}
-      <div
+      {/* bg-layer: parallax image — slightly oversized so edges never show on shift */}
+      <motion.div
         aria-hidden
-        className="absolute inset-0 -z-20"
-        style={{
-          backgroundImage: "url('/1.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+        style={{ x: bgX, y: bgY }}
+        className="absolute -inset-8 -z-20"
+      >
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: "url('/1.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+      </motion.div>
 
-      {/* overlay: darkens image so text stays readable */}
+      {/* overlay */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/55" />
 
       {/* content-layer */}
@@ -70,7 +105,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}
