@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { DURATION, EASE } from "@/lib/animation";
 import { Glitter } from "@/components/animations/Glitter";
 import { DaVinciLines } from "@/components/animations/DaVinciLines";
@@ -29,6 +29,14 @@ export function Hero() {
 
   const figX = useTransform(x, [-1, 1], [-45, 45]);
   const figY = useTransform(y, [-1, 1], [-28, 28]);
+
+  const { scrollY } = useScroll();
+  const womanScrollX = useTransform(scrollY, [0, 600], [0, 70]);
+  const manScrollX   = useTransform(scrollY, [0, 600], [0, -70]);
+
+  // combine cursor parallax + scroll compression per figure
+  const womanX = useTransform([figX, womanScrollX], ([fx, sx]) => (fx as number) + (sx as number));
+  const manX   = useTransform([figX, manScrollX],   ([fx, sx]) => (fx as number) + (sx as number));
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -81,7 +89,7 @@ export function Hero() {
         {/* woman — parallax → entrance → float */}
         <motion.div
           className="absolute left-0 top-[12%]"
-          style={isTouch ? undefined : { x: figX, y: figY }}
+          style={isTouch ? undefined : { x: womanX, y: figY }}
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -103,7 +111,7 @@ export function Hero() {
         {/* man — parallax → entrance → float */}
         <motion.div
           className="absolute right-0 top-[34%]"
-          style={isTouch ? undefined : { x: figX, y: figY }}
+          style={isTouch ? undefined : { x: manX, y: figY }}
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
