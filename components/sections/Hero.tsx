@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { DURATION, EASE } from "@/lib/animation";
+import { Glitter } from "@/components/animations/Glitter";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -15,8 +16,8 @@ export function Hero() {
   const y = useSpring(rawY, { stiffness: 60, damping: 20, mass: 1 });
 
   // Map mouse position to a subtle image shift (±20px)
-  const bgX = useTransform(x, [-1, 1], [20, -20]);
-  const bgY = useTransform(y, [-1, 1], [20, -20]);
+  const bgX = useTransform(x, [-1, 1], [60, -60]);
+  const bgY = useTransform(y, [-1, 1], [60, -60]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -43,7 +44,7 @@ export function Hero() {
       <motion.div
         aria-hidden
         style={{ x: bgX, y: bgY }}
-        className="absolute -inset-8 -z-20"
+        className="absolute -inset-20 -z-20"
       >
         <div
           className="w-full h-full"
@@ -57,6 +58,9 @@ export function Hero() {
 
       {/* overlay */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-black/55" />
+
+      {/* glitter particles */}
+      <Glitter />
 
       {/* content-layer */}
       <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
