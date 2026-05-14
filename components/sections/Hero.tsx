@@ -27,6 +27,9 @@ export function Hero() {
   const bgX = useTransform(x, [-1, 1], [60, -60]);
   const bgY = useTransform(y, [-1, 1], [60, -60]);
 
+  const figX = useTransform(x, [-1, 1], [-25, 25]);
+  const figY = useTransform(y, [-1, 1], [-15, 15]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
@@ -75,40 +78,48 @@ export function Hero() {
       {/* foreground figures */}
       <div className="absolute inset-0 z-[3] pointer-events-none mx-auto w-full max-w-6xl">
 
-        {/* woman — staggered entrance then continuous float */}
+        {/* woman — parallax → entrance → float */}
         <motion.div
           className="absolute left-0 top-[12%]"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.3, ease: ELASTIC }}
+          style={isTouch ? undefined : { x: figX, y: figY }}
         >
-          <motion.img
-            // eslint-disable-next-line @next/next/no-img-element
-            src="/1.1.png"
-            alt=""
-            aria-hidden
-            className="w-[48vw] md:w-[420px] h-auto object-contain"
-            animate={isTouch ? {} : { y: [0, -16, 0] }}
-            transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: ELASTIC }}
+          >
+            <motion.img
+              // eslint-disable-next-line @next/next/no-img-element
+              src="/1.1.png"
+              alt=""
+              aria-hidden
+              className="w-[48vw] md:w-[420px] h-auto object-contain"
+              animate={isTouch ? {} : { y: [0, -16, 0] }}
+              transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+            />
+          </motion.div>
         </motion.div>
 
-        {/* man — slightly later entrance, different float rhythm */}
+        {/* man — parallax → entrance → float */}
         <motion.div
           className="absolute right-0 top-[34%]"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease: ELASTIC }}
+          style={isTouch ? undefined : { x: figX, y: figY }}
         >
-          <motion.img
-            // eslint-disable-next-line @next/next/no-img-element
-            src="/1.2.png"
-            alt=""
-            aria-hidden
-            className="w-[48vw] md:w-[420px] h-auto object-contain"
-            animate={isTouch ? {} : { y: [0, -11, 0] }}
-            transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.55, ease: ELASTIC }}
+          >
+            <motion.img
+              // eslint-disable-next-line @next/next/no-img-element
+              src="/1.2.png"
+              alt=""
+              aria-hidden
+              className="w-[48vw] md:w-[420px] h-auto object-contain"
+              animate={isTouch ? {} : { y: [0, -11, 0] }}
+              transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+            />
+          </motion.div>
         </motion.div>
 
       </div>
