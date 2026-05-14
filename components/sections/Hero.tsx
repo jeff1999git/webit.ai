@@ -66,41 +66,50 @@ export function Hero() {
       {/* glitter particles */}
       <Glitter />
 
-      {/* content-layer */}
-      <div className="relative z-10 container mx-auto px-6 flex flex-col items-center text-center">
+      {/* foreground figures — in front of all overlays, anchored to bottom sides */}
+      {/* woman — left side, high up */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/1.1.png"
+        alt=""
+        aria-hidden
+        className="absolute left-0 top-[2%] h-[65%] w-auto pointer-events-none z-[3]"
+      />
+      {/* man — right side, slightly lower */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/1.2.png"
+        alt=""
+        aria-hidden
+        className="absolute right-0 top-[24%] h-[65%] w-auto pointer-events-none z-[3]"
+      />
+
+      {/* content-layer — anchored to bottom, light and minimal */}
+      <div className="absolute bottom-14 inset-x-0 z-10 flex flex-col items-center text-center px-6">
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.slow, ease: [...EASE.enter] }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground leading-[1.05] max-w-4xl"
+          className="text-2xl md:text-3xl font-semibold tracking-tight text-white/60 max-w-lg leading-snug"
         >
           Lorem ipsum dolor sit amet
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.15 }}
-          className="mt-6 text-lg md:text-xl text-foreground/50 max-w-xl leading-relaxed"
-        >
-          Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </motion.p>
-
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.3 }}
-          className="mt-10 flex flex-col sm:flex-row items-center gap-4"
+          transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.2 }}
+          className="mt-5 flex items-center gap-4"
         >
           <a
             href="#contact"
-            className="inline-flex items-center justify-center h-12 px-8 text-sm font-semibold rounded-full bg-white text-black hover:bg-white/90 transition-all duration-normal ease-smooth"
+            className="inline-flex items-center justify-center h-10 px-6 text-sm font-semibold rounded-full bg-white/90 text-black hover:bg-white transition-all duration-normal ease-smooth"
           >
             Get started
           </a>
           <a
             href="#about"
-            className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors duration-fast"
+            className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors duration-fast"
           >
             Learn more
             <span aria-hidden className="text-xs">→</span>
