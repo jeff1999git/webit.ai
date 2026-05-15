@@ -21,7 +21,7 @@ function BlinkingFigure() {
         className="absolute inset-0 w-full h-full object-contain object-top"
       />
       {/* open eyes — snaps in over the closed-eyes base; nudged left to correct source alignment */}
-      <div className="absolute inset-0" style={{ transform: "translateX(9px)" }}>
+      <div className="absolute inset-0" style={{ transform: "translateX(9px) translateY(3px)" }}>
         <motion.img
           // eslint-disable-next-line @next/next/no-img-element
           src="/3.2.png"
