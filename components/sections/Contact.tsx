@@ -50,7 +50,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <div
         aria-hidden
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
