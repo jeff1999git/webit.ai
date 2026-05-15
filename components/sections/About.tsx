@@ -1,66 +1,57 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { SlideUp } from "@/components/animations/SlideUp";
 
 export function About() {
-  const ref = useRef<HTMLElement>(null);
-
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-
-  const x = useSpring(rawX, { stiffness: 60, damping: 20, mass: 1 });
-  const y = useSpring(rawY, { stiffness: 60, damping: 20, mass: 1 });
-
-  const bgX = useTransform(x, [-1, 1], [60, -60]);
-  const bgY = useTransform(y, [-1, 1], [60, -60]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    rawX.set((e.clientX - rect.left) / rect.width * 2 - 1);
-    rawY.set((e.clientY - rect.top) / rect.height * 2 - 1);
-  };
-
-  const handleMouseLeave = () => {
-    rawX.set(0);
-    rawY.set(0);
-  };
-
   return (
     <section
-      ref={ref}
       id="about"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* parallax background */}
-      <motion.div
+      {/* static background */}
+      <div
         aria-hidden
-        style={{ x: bgX, y: bgY }}
-        className="absolute -inset-20 -z-20"
-      >
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: "url('/2.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-      </motion.div>
-
-      {/* overlay */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-black/55" />
+        className="absolute inset-0 -z-10"
+        style={{
+          backgroundImage: "url('/2.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
       <div
         aria-hidden
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
       />
 
-      <div className="container mx-auto px-6 max-w-2xl">
+      {/* bottom-anchored static figure */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/2.2.png"
+        alt=""
+        aria-hidden
+        className="absolute bottom-0 right-8 w-[36rem] object-contain object-bottom pointer-events-none"
+      />
+
+      {/* side-center glowing figure */}
+      <motion.img
+        // eslint-disable-next-line @next/next/no-img-element
+        src="/2.1.png"
+        alt=""
+        aria-hidden
+        className="absolute top-1/2 -translate-y-1/2 left-0 w-[26rem] object-contain pointer-events-none"
+        animate={{
+          filter: [
+            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+            "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+          ],
+        }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="container mx-auto px-6 max-w-2xl w-full">
         <SlideUp>
           <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
             About
