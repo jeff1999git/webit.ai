@@ -25,13 +25,21 @@ export function About() {
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
       />
 
-      {/* bottom-anchored static figure */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      {/* bottom-anchored glowing figure */}
+      <motion.img
+        // eslint-disable-next-line @next/next/no-img-element
         src="/2.2.png"
         alt=""
         aria-hidden
         className="absolute bottom-0 right-8 w-[36rem] object-contain object-bottom pointer-events-none"
+        animate={{
+          filter: [
+            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+            "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+          ],
+        }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* side-center glowing figure */}
