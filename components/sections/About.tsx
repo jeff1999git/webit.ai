@@ -14,7 +14,7 @@ export function About() {
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{
-          backgroundImage: "url('/2.png')",
+          backgroundImage: "url('/optimized/2-orig.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -26,38 +26,46 @@ export function About() {
       />
 
       {/* bottom-anchored glowing figure */}
-      <motion.img
-        // eslint-disable-next-line @next/next/no-img-element
-        src="/2.2.png"
-        alt=""
-        aria-hidden
-        className="absolute bottom-0 right-8 w-[36rem] object-contain object-bottom pointer-events-none"
-        animate={{
-          filter: [
-            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-          ],
-        }}
-        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <picture>
+        <source srcSet="/optimized/2.2-orig.avif" type="image/avif" />
+        <source srcSet="/optimized/2.2-orig.webp" type="image/webp" />
+        <motion.img
+          // eslint-disable-next-line @next/next/no-img-element
+          src="/optimized/2.2-orig.png"
+          alt=""
+          aria-hidden
+          className="absolute bottom-0 right-8 w-[36rem] object-contain object-bottom pointer-events-none"
+          animate={{
+            filter: [
+              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+            ],
+          }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </picture>
 
       {/* side-center glowing figure */}
-      <motion.img
-        // eslint-disable-next-line @next/next/no-img-element
-        src="/2.1.png"
-        alt=""
-        aria-hidden
-        className="absolute top-1/2 -translate-y-1/2 left-0 w-[26rem] object-contain pointer-events-none"
-        animate={{
-          filter: [
-            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-            "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-          ],
-        }}
-        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-      />
+      <picture>
+        <source srcSet="/optimized/2.1-orig.avif" type="image/avif" />
+        <source srcSet="/optimized/2.1-orig.webp" type="image/webp" />
+        <motion.img
+          // eslint-disable-next-line @next/next/no-img-element
+          src="/optimized/2.1-orig.png"
+          alt=""
+          aria-hidden
+          className="absolute top-1/2 -translate-y-1/2 left-0 w-[26rem] object-contain pointer-events-none"
+          animate={{
+            filter: [
+              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+            ],
+          }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </picture>
 
       <div className="container mx-auto px-6 max-w-2xl w-full">
         <SlideUp>

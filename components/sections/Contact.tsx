@@ -10,21 +10,28 @@ function BlinkingFigure() {
     <div className="relative w-full max-w-sm mx-auto select-none overflow-hidden">
       {/* invisible spacer — locks container to 3.1.png's natural aspect ratio */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/3.1.png" alt="" aria-hidden className="w-full h-auto invisible" />
+      <img src="/optimized/3.1-orig.webp" alt="" aria-hidden className="w-full h-auto invisible" />
 
-      {/* open eyes */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/3.1.png"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 w-full h-full object-contain object-top"
-      />
+      {/* closed eyes base */}
+      <picture>
+        <source srcSet="/optimized/3.1-orig.avif" type="image/avif" />
+        <source srcSet="/optimized/3.1-orig.webp" type="image/webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/optimized/3.1-orig.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-contain object-top"
+        />
+      </picture>
       {/* open eyes — snaps in over the closed-eyes base; nudged left to correct source alignment */}
       <div className="absolute inset-0" style={{ transform: "translateX(9px) translateY(3px)" }}>
-        <motion.img
-          // eslint-disable-next-line @next/next/no-img-element
-          src="/3.2.png"
+        <picture>
+          <source srcSet="/optimized/3.2-orig.avif" type="image/avif" />
+          <source srcSet="/optimized/3.2-orig.webp" type="image/webp" />
+          <motion.img
+            // eslint-disable-next-line @next/next/no-img-element
+            src="/optimized/3.2-orig.png"
           alt=""
           aria-hidden
           className="w-full h-full object-contain object-top"
@@ -36,6 +43,7 @@ function BlinkingFigure() {
             ease: "linear",
           }}
         />
+        </picture>
       </div>
     </div>
   );
@@ -63,19 +71,9 @@ export function Contact() {
           <div>
             <div className="mb-10">
               <SlideUp>
-                <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
+                <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-tight">
                   Connect
-                </p>
-              </SlideUp>
-              <SlideUp delay={0.05}>
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight">
-                  Quis nostrud exercitation
                 </h2>
-              </SlideUp>
-              <SlideUp delay={0.1}>
-                <p className="mt-4 text-foreground/50">
-                  Duis aute irure dolor in reprehenderit in voluptate velit.
-                </p>
               </SlideUp>
             </div>
 
@@ -97,6 +95,11 @@ export function Contact() {
                     type="email"
                     required
                     placeholder="Email"
+                    className="h-12 rounded-xl bg-surface border border-surface-border px-4 text-sm text-foreground placeholder:text-foreground/20 focus:outline-none focus:border-accent/60 transition-colors duration-fast"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="WhatsApp Number"
                     className="h-12 rounded-xl bg-surface border border-surface-border px-4 text-sm text-foreground placeholder:text-foreground/20 focus:outline-none focus:border-accent/60 transition-colors duration-fast"
                   />
                   <textarea

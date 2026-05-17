@@ -60,7 +60,7 @@ export function Hero() {
         <div
           className="w-full h-full"
           style={{
-            backgroundImage: "url('/1.jpg')",
+            backgroundImage: "url('/optimized/1-orig.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -89,15 +89,19 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.3, ease: ELASTIC }}
           >
-            <motion.img
-              // eslint-disable-next-line @next/next/no-img-element
-              src="/1.1.png"
-              alt=""
-              aria-hidden
-              className="w-[48vw] md:w-[420px] h-auto object-contain"
-              animate={isTouch ? {} : { y: [0, -16, 0] }}
-              transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
-            />
+            <picture>
+              <source srcSet="/optimized/1.1-orig.avif" type="image/avif" />
+              <source srcSet="/optimized/1.1-orig.webp" type="image/webp" />
+              <motion.img
+                // eslint-disable-next-line @next/next/no-img-element
+                src="/optimized/1.1-orig.png"
+                alt=""
+                aria-hidden
+                className="w-[48vw] md:w-[420px] h-auto object-contain"
+                animate={isTouch ? {} : { y: [0, -16, 0] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.4 }}
+              />
+            </picture>
           </motion.div>
         </motion.div>
 
@@ -111,15 +115,19 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.55, ease: ELASTIC }}
           >
-            <motion.img
-              // eslint-disable-next-line @next/next/no-img-element
-              src="/1.2.png"
-              alt=""
-              aria-hidden
-              className="w-[48vw] md:w-[420px] h-auto object-contain"
-              animate={isTouch ? {} : { y: [0, -11, 0] }}
-              transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
-            />
+            <picture>
+              <source srcSet="/optimized/1.2-orig.avif" type="image/avif" />
+              <source srcSet="/optimized/1.2-orig.webp" type="image/webp" />
+              <motion.img
+                // eslint-disable-next-line @next/next/no-img-element
+                src="/optimized/1.2-orig.png"
+                alt=""
+                aria-hidden
+                className="w-[48vw] md:w-[420px] h-auto object-contain"
+                animate={isTouch ? {} : { y: [0, -11, 0] }}
+                transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+              />
+            </picture>
           </motion.div>
         </motion.div>
 
