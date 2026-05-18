@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"f:\\\\Projects\\\\webit.ai\\\\lib\" -Recurse -File | Select-Object FullName | ForEach-Object { $_.FullName.Substring\\($_.FullName.LastIndexOf\\('lib'\\)\\) })",
+      "PowerShell(Get-ChildItem -Path \"f:\\\\Projects\\\\webit.ai\\\\scripts\" -Recurse -File | Select-Object FullName | ForEach-Object { $_.FullName.Substring\\($_.FullName.LastIndexOf\\('scripts'\\)\\) })",
+      "PowerShell(Get-ChildItem -Path \"f:\\\\Projects\\\\webit.ai\\\\public\" -Recurse -File | Select-Object FullName | ForEach-Object { $_.FullName.Substring\\($_.FullName.LastIndexOf\\('public'\\)\\) })",
+      "PowerShell(Get-ChildItem -Path \"f:\\\\Projects\\\\webit.ai\" -Directory | Where-Object { $_.Name -notmatch '^\\\\.next|node_modules' } | Select-Object Name)",
+      "Bash(ls -la f:\\\\\\\\Projects\\\\\\\\webit.ai)"
+    ]
+  }
+}
