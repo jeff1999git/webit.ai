@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -12,24 +10,12 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <motion.header
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-      className={cn(
-        "fixed top-0 inset-x-0 z-50",
-        "transition-all duration-normal ease-smooth",
-        scrolled ? "py-3" : "py-5"
-      )}
+      className="fixed top-0 inset-x-0 z-50 py-5"
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
