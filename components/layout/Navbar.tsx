@@ -25,12 +25,12 @@ export function Navbar() {
         </Link>
 
         {/* Nav links — right corner */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-3">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-foreground/60 hover:text-foreground transition-colors duration-fast"
+              className="text-sm text-foreground/70 hover:text-foreground px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-fast"
             >
               {link.label}
             </a>
