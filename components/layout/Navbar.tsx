@@ -25,7 +25,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Nav links */}
+        {/* Nav links — right corner */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -37,14 +37,6 @@ export function Navbar() {
             </a>
           ))}
         </nav>
-
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="inline-flex items-center justify-center h-9 px-4 text-sm font-medium rounded-full border border-surface-border text-foreground hover:border-white/40 hover:bg-white/5 transition-all duration-normal ease-smooth"
-        >
-          Get in touch
-        </a>
       </div>
     </motion.header>
   );
