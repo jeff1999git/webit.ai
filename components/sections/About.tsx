@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SlideUp } from "@/components/animations/SlideUp";
+import { Fireflies } from "@/components/animations/Fireflies";
 
 export function About() {
   return (
@@ -19,6 +20,8 @@ export function About() {
           backgroundPosition: "center",
         }}
       />
+
+      <Fireflies />
 
       <div
         aria-hidden

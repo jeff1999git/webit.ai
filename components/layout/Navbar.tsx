@@ -28,9 +28,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 inset-x-0 z-50",
         "transition-all duration-normal ease-smooth",
-        scrolled
-          ? "py-3 border-b border-surface-border bg-background/80 backdrop-blur-md"
-          : "py-5"
+        scrolled ? "py-3" : "py-5"
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
