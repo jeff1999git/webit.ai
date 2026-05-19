@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SlideUp } from "@/components/animations/SlideUp";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { StarField } from "@/components/animations/StarField";
 
 function BlinkingFigure() {
   return (
@@ -103,6 +104,8 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <StarField />
+
       <div
         aria-hidden
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
