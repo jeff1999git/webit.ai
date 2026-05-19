@@ -111,10 +111,15 @@ export function Contact() {
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
       />
 
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* bottom-anchored blinking figure */}
+      <div className="absolute bottom-0 right-8 w-[42rem] pointer-events-none select-none">
+        <FadeIn delay={0.1}>
+          <BlinkingFigure />
+        </FadeIn>
+      </div>
 
-          {/* left — heading + form */}
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="max-w-lg">
           <div>
             <div className="mb-10">
               <SlideUp>
@@ -170,12 +175,6 @@ export function Contact() {
               </form>
             </FadeIn>
           </div>
-
-          {/* right — blinking figure */}
-          <FadeIn delay={0.1}>
-            <BlinkingFigure />
-          </FadeIn>
-
         </div>
       </div>
 
