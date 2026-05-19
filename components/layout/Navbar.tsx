@@ -30,7 +30,7 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-foreground/70 hover:text-foreground px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all duration-fast"
+              className="text-sm text-foreground/80 hover:text-foreground px-4 py-2 rounded-full bg-white/15 backdrop-blur-lg border border-white/25 hover:bg-white/25 transition-all duration-fast"
             >
               {link.label}
             </a>
