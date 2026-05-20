@@ -1,8 +1,83 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { SlideUp } from "@/components/animations/SlideUp";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Fireflies } from "@/components/animations/Fireflies";
+
+const BOXES = [
+  {
+    word: "Design",
+    desc: "Pixel-perfect interfaces crafted to captivate, delight, and guide every user effortlessly.",
+    x: "38%", y: "12%",
+    float: { dur: 3.6, delay: 0 },
+  },
+  {
+    word: "Strategy",
+    desc: "Aligning technology with your vision to drive meaningful, measurable business outcomes.",
+    x: "62%", y: "28%",
+    float: { dur: 4.2, delay: 0.8 },
+  },
+  {
+    word: "Build",
+    desc: "Scalable, robust digital products engineered for performance, reliability, and longevity.",
+    x: "42%", y: "52%",
+    float: { dur: 3.9, delay: 1.4 },
+  },
+  {
+    word: "Launch",
+    desc: "Taking your ideas from concept to market swiftly, with precision and full confidence.",
+    x: "22%", y: "34%",
+    float: { dur: 4.5, delay: 0.4 },
+  },
+  {
+    word: "Grow",
+    desc: "Continuous optimisation and intelligent scaling to keep your digital presence ahead.",
+    x: "60%", y: "64%",
+    float: { dur: 3.3, delay: 1.1 },
+  },
+];
+
+function FloatingBox({
+  word, desc, x, y, float: { dur, delay },
+}: (typeof BOXES)[number]) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{ left: x, top: y, translateX: "-50%", translateY: "-50%" }}
+      animate={{ y: [0, -14, 0] }}
+      transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay }}
+    >
+      <motion.div
+        onHoverStart={() => setHovered(true)}
+        onHoverEnd={() => setHovered(false)}
+        animate={hovered ? { scale: 1.45 } : { scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+        className="cursor-default rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 px-6 py-4 shadow-lg origin-center"
+        style={{ minWidth: 110 }}
+      >
+        <p className="text-base font-bold text-foreground text-center tracking-wide">
+          {word}
+        </p>
+
+        <AnimatePresence>
+          {hovered && (
+            <motion.p
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: "auto", marginTop: 10 }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.22 }}
+              className="text-xs text-foreground/70 leading-relaxed text-center max-w-[160px]"
+            >
+              {desc}
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export function About() {
   return (
@@ -70,34 +145,10 @@ export function About() {
         />
       </picture>
 
-      <div className="container mx-auto px-6 max-w-2xl w-full">
-        <SlideUp>
-          <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
-            About
-          </p>
-        </SlideUp>
-
-        <SlideUp delay={0.05}>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight mb-6">
-            Ut enim ad minim veniam
-          </h2>
-        </SlideUp>
-
-        <SlideUp delay={0.1}>
-          <p className="text-foreground/50 leading-relaxed mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </SlideUp>
-
-        <SlideUp delay={0.15}>
-          <p className="text-foreground/50 leading-relaxed">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-          </p>
-        </SlideUp>
-      </div>
+      {/* floating boxes */}
+      {BOXES.map((box) => (
+        <FloatingBox key={box.word} {...box} />
+      ))}
     </section>
   );
 }
