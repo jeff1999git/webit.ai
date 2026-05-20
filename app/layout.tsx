@@ -15,12 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "webapp — AI-Powered Web Studio",
+  title: "WebitAi — AI-Powered Web Studio",
   description:
     "We craft high-performance web experiences powered by AI — from landing pages to full-stack platforms that scale.",
   keywords: ["web development", "AI", "Next.js", "SaaS", "agency"],
   openGraph: {
-    title: "webapp — AI-Powered Web Studio",
+    title: "WebitAi — AI-Powered Web Studio",
     description: "Build smarter. Launch faster.",
     type: "website",
   },
