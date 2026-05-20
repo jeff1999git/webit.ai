@@ -103,7 +103,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center overflow-hidden">
       <StarField />
 
       <div
