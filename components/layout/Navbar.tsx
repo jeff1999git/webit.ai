@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#about" },
   { label: "Connect", href: "/#contact" },
 ];
 
