@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { StarField } from "@/components/animations/StarField";
 
-export const metadata = { title: "Privacy Policy — WebitAi" };
+export const metadata = { title: "Privacy Policy — WebApp" };
 
 export default function PrivacyPolicyPage() {
   return (

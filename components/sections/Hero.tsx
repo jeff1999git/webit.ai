@@ -148,7 +148,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.7 }}
             className="text-sm font-medium tracking-[0.12em] uppercase text-white/50 mb-4"
           >
-            Can Ai make a WebApp?
+            Lorem ipsum dolor sit amet?
           </motion.p>
 
           {/* answer */}
@@ -158,7 +158,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.85 }}
             className="text-3xl md:text-4xl font-bold text-white leading-[1.1] tracking-tight mb-4"
           >
-            Yes, this website<br />is proof of it.
+            Lorem ipsum<br />dolor sit amet.
           </motion.h1>
 
           {/* description */}
@@ -168,9 +168,9 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
             className="text-sm text-white/50 leading-relaxed mb-6"
           >
-            Built entirely with{" "}
-            <span className="text-white/70 font-medium">vibe coding</span> — not a single line of code
-            written by hand. Just AI, prompts, and a vision.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
+            <span className="text-white/70 font-medium">Sed do eiusmod</span> tempor incididunt
+            ut labore et dolore magna aliqua.
           </motion.p>
 
           {/* CTAs */}

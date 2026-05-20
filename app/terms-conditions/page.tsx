@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { StarField } from "@/components/animations/StarField";
 
-export const metadata = { title: "Terms & Conditions — WebitAi" };
+export const metadata = { title: "Terms & Conditions — WebApp" };
 
 export default function TermsConditionsPage() {
   return (
@@ -29,7 +29,7 @@ export default function TermsConditionsPage() {
             <h2 className="text-base font-semibold text-foreground mb-2">2. Intellectual Property</h2>
             <p>
               All content on this website — including text, graphics, logos, animations,
-              and code — is the property of WebitAi and is protected by applicable intellectual
+              and code — is the property of WebApp and is protected by applicable intellectual
               property laws. You may not reproduce, distribute, or create derivative works
               without our express written consent.
             </p>
@@ -47,7 +47,7 @@ export default function TermsConditionsPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-2">4. Limitation of Liability</h2>
             <p>
-              To the fullest extent permitted by law, WebitAi shall not be liable for any
+              To the fullest extent permitted by law, WebApp shall not be liable for any
               indirect, incidental, special, or consequential damages arising from your
               use of the website or our services, even if advised of the possibility of
               such damages.

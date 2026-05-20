@@ -6,7 +6,7 @@ import { GradientText } from "@/components/ui/GradientText";
 const testimonials = [
   {
     quote:
-      "WebitAi shipped our MVP in 6 weeks. The quality was production-grade from day one — not 'we'll clean it up later' quality.",
+      "WebApp shipped our MVP in 6 weeks. The quality was production-grade from day one — not 'we'll clean it up later' quality.",
     author: "Sarah Chen",
     role: "Founder, Pulse Analytics",
     avatar: "SC",

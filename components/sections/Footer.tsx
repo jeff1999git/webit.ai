@@ -11,7 +11,7 @@ export function Footer() {
     <footer id="footer" className="relative border-t border-surface-border">
       <div className="container mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <Link href="/" className="text-sm font-bold tracking-tight text-foreground">
-          WebitAi
+          WebApp
         </Link>
 
         <nav className="flex items-center gap-1">
@@ -29,7 +29,7 @@ export function Footer() {
         </nav>
 
         <p className="text-xs text-foreground/25">
-          © {new Date().getFullYear()} WebitAi Labs
+          © {new Date().getFullYear()} WebApp Inc
         </p>
       </div>
     </footer>

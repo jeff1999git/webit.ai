@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { StarField } from "@/components/animations/StarField";
 
-export const metadata = { title: "About Us — WebitAi" };
+export const metadata = { title: "About Us — WebApp" };
 
 export default function AboutUsPage() {
   return (
