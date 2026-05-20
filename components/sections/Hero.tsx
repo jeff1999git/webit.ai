@@ -133,44 +133,72 @@ export function Hero() {
 
       </div>
 
-      {/* content — anchored to bottom, light and minimal */}
-      <div className="absolute bottom-14 inset-x-0 z-10 flex flex-col items-center text-center px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.7 }}
-          className="text-2xl md:text-3xl font-semibold tracking-tight text-white/60 max-w-lg leading-snug"
-        >
-          Lorem ipsum dolor sit amet
-        </motion.h1>
-
+      {/* centered bordered content box — sits behind figures (z-[2] < figures z-[3]) */}
+      <div className="absolute inset-0 z-[2] flex items-center justify-center px-6">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.85 }}
-          className="mt-5 flex items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [...EASE.enter] }}
+          className="border border-white/20 p-6 w-full max-w-[340px]"
         >
-          {/* primary CTA — elastic spring on hover */}
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 500, damping: 18 }}
-            className="inline-flex items-center justify-center h-10 px-6 text-sm font-semibold rounded-full bg-white/90 text-black hover:bg-white"
+          {/* question */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.7 }}
+            className="text-sm font-medium tracking-[0.12em] uppercase text-white/50 mb-4"
           >
-            Get started
-          </motion.a>
+            Can Ai make a WebApp?
+          </motion.p>
 
-          {/* secondary CTA */}
-          <motion.a
-            href="#about"
-            whileHover={{ x: 3 }}
-            transition={{ type: "spring", stiffness: 500, damping: 18 }}
-            className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors duration-fast"
+          {/* answer */}
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.85 }}
+            className="text-3xl md:text-4xl font-bold text-white leading-[1.1] tracking-tight mb-4"
           >
-            Learn more
-            <span aria-hidden className="text-xs">→</span>
-          </motion.a>
+            Yes, this website<br />is proof of it.
+          </motion.h1>
+
+          {/* description */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
+            className="text-sm text-white/50 leading-relaxed mb-6"
+          >
+            Built entirely with{" "}
+            <span className="text-white/70 font-medium">vibe coding</span> — not a single line of code
+            written by hand. Just AI, prompts, and a vision.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.15 }}
+            className="flex items-center gap-4"
+          >
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 500, damping: 18 }}
+              className="inline-flex items-center justify-center h-9 px-5 text-xs font-semibold rounded-full bg-white/90 text-black hover:bg-white"
+            >
+              Get started
+            </motion.a>
+            <motion.a
+              href="#about"
+              whileHover={{ x: 3 }}
+              transition={{ type: "spring", stiffness: 500, damping: 18 }}
+              className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors duration-fast"
+            >
+              Learn more
+              <span aria-hidden className="text-xs">→</span>
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
 
