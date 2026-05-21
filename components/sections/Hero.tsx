@@ -140,8 +140,8 @@ export function Hero() {
 
       </div>
 
-      {/* centered bordered content box — sits behind figures (z-[2] < figures z-[3]) */}
-      <div className="absolute inset-0 z-[2] flex items-center justify-center px-6">
+      {/* centered bordered content box — above figures (z-[4] > figures z-[3]) */}
+      <div className="absolute inset-0 z-[4] flex items-center justify-center px-6">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
