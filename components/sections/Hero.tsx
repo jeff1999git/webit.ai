@@ -210,15 +210,6 @@ export function Hero() {
             >
               Get started
             </motion.a>
-            <motion.a
-              href="#about"
-              whileHover={{ x: 3 }}
-              transition={{ type: "spring", stiffness: 500, damping: 18 }}
-              className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors duration-fast"
-            >
-              Learn more
-              <span aria-hidden className="text-xs">→</span>
-            </motion.a>
           </motion.div>
         </motion.div>
       </div>
