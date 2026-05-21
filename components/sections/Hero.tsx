@@ -146,7 +146,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [...EASE.enter] }}
-          className="border-2 border-white p-6 w-full max-w-[340px]"
+          className="border border-white p-6 w-full max-w-[340px]"
         >
           {/* question */}
           <motion.p
