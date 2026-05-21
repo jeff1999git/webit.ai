@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { DURATION, EASE } from "@/lib/animation";
 import { Glitter } from "@/components/animations/Glitter";
 import { DaVinciLines } from "@/components/animations/DaVinciLines";
@@ -16,6 +16,13 @@ export function Hero() {
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  const cyclingWords = ["amet", "ipsum", "dolor"];
+  const [wordIndex, setWordIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setWordIndex((i) => (i + 1) % cyclingWords.length), 2000);
+    return () => clearInterval(id);
   }, []);
 
   const rawX = useMotionValue(0);
@@ -139,16 +146,30 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [...EASE.enter] }}
-          className="border border-white/20 p-6 w-full max-w-[340px]"
+          className="border-2 border-white p-6 w-full max-w-[340px]"
         >
           {/* question */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.7 }}
-            className="text-sm font-medium tracking-[0.12em] uppercase text-white/50 mb-4"
+            className="text-sm font-bold tracking-[0.12em] uppercase text-white mb-4"
           >
-            Lorem ipsum dolor sit amet?
+            Lorem ipsum dolor sit{" "}
+            <span className="inline-block relative">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={cyclingWords[wordIndex]}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="inline-block"
+                >
+                  {cyclingWords[wordIndex]}?
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </motion.p>
 
           {/* answer */}
