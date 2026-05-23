@@ -10,11 +10,11 @@ export default function AboutUsPage() {
       <StarField />
 
       <div className="relative z-10 container mx-auto px-6 max-w-2xl pt-32 pb-24">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-2">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-2 [text-shadow:0_2px_24px_rgba(0,0,0,0.9),0_0_48px_rgba(0,0,0,0.7)]">
           About Us
         </h1>
 
-        <div className="space-y-6 text-foreground/70 leading-relaxed text-sm">
+        <div className="space-y-6 text-foreground/70 leading-relaxed text-sm [text-shadow:0_1px_10px_rgba(0,0,0,0.95)]">
           <p>
             WebitAI Labs is an initiative focused on making AI-powered website creation
             accessible to everyone — even people with zero coding knowledge.
