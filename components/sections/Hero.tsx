@@ -179,7 +179,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.85 }}
             className="text-3xl md:text-4xl font-bold text-white leading-[1.1] tracking-tight mb-4"
           >
-            Yes, this website<br />is proof of it.
+            Yes, this website<br />is the proof.
           </motion.h1>
 
           {/* description */}
