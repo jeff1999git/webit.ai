@@ -187,9 +187,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
-            className="text-sm text-white/50 leading-relaxed mb-6"
+            className="text-sm text-white/90 leading-relaxed mb-6 drop-shadow-sm"
           >
-            Built entirely with vibe coding — not a single line of code written by hand. Just AI, prompts, and a vision.
+            Built entirely with vibe coding in just 3 days — not a single line of code written by hand. Just AI, prompts, and a vision.
           </motion.p>
 
           {/* CTAs */}

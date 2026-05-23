@@ -35,7 +35,7 @@ Temporary dummy content applied for privacy. Replace dummy → real to restore.
 |---|---|
 | `Lorem ipsum dolor sit amet?` | `Can Ai make a WebApp?` |
 | `Lorem ipsum<br />dolor sit amet.` | `Yes, this website<br />is proof of it.` |
-| `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.` | `Built entirely with vibe coding — not a single line of code written by hand. Just AI, prompts, and a vision.` |
+| `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.` | `Built entirely with vibe coding in just 3 days — not a single line of code written by hand. Just AI, prompts, and a vision.` |
 
 ## How to restore
 
