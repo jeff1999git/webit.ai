@@ -6,32 +6,32 @@ import { Fireflies } from "@/components/animations/Fireflies";
 
 const BOXES = [
   {
-    word: "Design",
-    desc: "Pixel-perfect interfaces crafted to captivate, delight, and guide every user effortlessly.",
+    word: "Teach",
+    desc: "Understand how AI can build real websites without coding knowledge.",
     x: "40%", y: "12%",
     float: { dur: 3.6, delay: 0 },
   },
   {
-    word: "Strategy",
-    desc: "Aligning technology with your vision to drive meaningful, measurable business outcomes.",
+    word: "Prompt",
+    desc: "Learn how to communicate with AI using simple natural language prompts.",
     x: "58%", y: "24%",
     float: { dur: 4.2, delay: 0.8 },
   },
   {
-    word: "Build",
-    desc: "Scalable, robust digital products engineered for performance, reliability, and longevity.",
+    word: "Design",
+    desc: "Create modern and responsive website layouts using AI assistance.",
     x: "44%", y: "50%",
     float: { dur: 3.9, delay: 1.4 },
   },
   {
-    word: "Launch",
-    desc: "Taking your ideas from concept to market swiftly, with precision and full confidence.",
+    word: "Build",
+    desc: "Generate complete landing pages and business websites hands-on.",
     x: "36%", y: "34%",
     float: { dur: 4.5, delay: 0.4 },
   },
   {
-    word: "Grow",
-    desc: "Continuous optimisation and intelligent scaling to keep your digital presence ahead.",
+    word: "Launch",
+    desc: "Publish your website online and make your idea live to the world.",
     x: "52%", y: "66%",
     float: { dur: 3.3, delay: 1.1 },
   },
