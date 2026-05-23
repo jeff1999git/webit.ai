@@ -206,7 +206,7 @@ export function Hero() {
               transition={{ type: "spring", stiffness: 500, damping: 18 }}
               className="inline-flex items-center justify-center h-9 px-5 text-xs font-semibold rounded-full bg-white/90 text-black hover:bg-white"
             >
-              Get started
+              Workshop Registration
             </motion.a>
           </motion.div>
         </motion.div>

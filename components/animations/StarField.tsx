@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 
 const COLORS: [number, number, number][] = [
-  [255, 255, 255],   // white
-  [180, 210, 255],   // blue-white
-  [255, 240, 200],   // warm gold
-  [210, 185, 255],   // lavender
+  [255, 255, 255],
+  [180, 210, 255],
+  [255, 240, 200],
+  [210, 185, 255],
 ];
 
 interface Star {
@@ -29,20 +29,30 @@ export function StarField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const mobile = window.matchMedia("(pointer: coarse)").matches;
+    const TARGET_MS = mobile ? 1000 / 24 : 0; // 24 fps cap on mobile
+
     let raf: number;
     let stars: Star[] = [];
+    let nebGrad: CanvasGradient | null = null;
+    let neb2Grad: CanvasGradient | null = null;
+    let lastDraw = 0;
 
     const build = () => {
-      const count = Math.floor((canvas.width * canvas.height) / 3200);
-      const maxR = Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2;
+      const w = canvas.width, h = canvas.height;
+      const cx = w / 2, cy = h / 2;
+      const maxR = Math.sqrt(cx ** 2 + cy ** 2);
+
+      const count = mobile
+        ? Math.min(40, Math.max(15, Math.floor((w * h) / 9000)))
+        : Math.floor((w * h) / 3200);
 
       stars = Array.from({ length: count }, () => {
-        // gaussian-ish density — denser toward center like a galaxy core
         const dist = Math.min(Math.sqrt(-Math.log(1 - Math.random() * 0.99)) * 0.46, 1.25);
         const size =
-          Math.random() < 0.04 ? Math.random() * 1.6 + 1.8  // bright
-          : Math.random() < 0.25 ? Math.random() * 0.9 + 0.9  // medium
-          : Math.random() * 0.5 + 0.25;                         // tiny
+          Math.random() < 0.04 ? Math.random() * 1.6 + 1.8
+          : Math.random() < 0.25 ? Math.random() * 0.9 + 0.9
+          : Math.random() * 0.5 + 0.25;
 
         return {
           angle: Math.random() * Math.PI * 2,
@@ -54,11 +64,23 @@ export function StarField() {
             : Math.random() < 0.5 ? 2 : 3,
           twinkleSpeed: Math.random() * 2 + 0.4,
           twinklePhase: Math.random() * Math.PI * 2,
-          // inner stars orbit slightly faster (visual depth)
           orbitSpeed: (0.008 + (1 - dist) * 0.014 + Math.random() * 0.006),
           isBright: size > 1.8,
         };
       });
+
+      // Cache nebula gradients — recreated on resize, reused every frame
+      nebGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.65);
+      nebGrad.addColorStop(0,   "rgba(90, 50, 150, 0.18)");
+      nebGrad.addColorStop(0.3, "rgba(30, 20,  90, 0.10)");
+      nebGrad.addColorStop(0.7, "rgba(10, 10,  40, 0.05)");
+      nebGrad.addColorStop(1,   "rgba(0,  0,   0,  0)");
+
+      if (!mobile) {
+        neb2Grad = ctx.createRadialGradient(cx * 0.4, cy * 0.6, 0, cx * 0.4, cy * 0.6, maxR * 0.35);
+        neb2Grad.addColorStop(0, "rgba(20, 60, 120, 0.10)");
+        neb2Grad.addColorStop(1, "rgba(0,  0,  0,   0)");
+      }
     };
 
     const resize = () => {
@@ -73,7 +95,6 @@ export function StarField() {
     ) => {
       const [r, g, b] = color;
       const arms = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
-      // diagonal shorter arms
       const diag = [Math.PI / 4, (3 * Math.PI) / 4, (5 * Math.PI) / 4, (7 * Math.PI) / 4];
 
       ctx.save();
@@ -113,6 +134,12 @@ export function StarField() {
     };
 
     const draw = (t: number) => {
+      raf = requestAnimationFrame(draw);
+
+      // Frame throttle on mobile — skip work, keep the loop alive
+      if (mobile && t - lastDraw < TARGET_MS) return;
+      lastDraw = t;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const ts = t / 1000;
@@ -120,60 +147,51 @@ export function StarField() {
       const cy = canvas.height / 2;
       const maxR = Math.sqrt(cx ** 2 + cy ** 2);
 
-      // nebula core glow
-      const neb = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.65);
-      neb.addColorStop(0,   "rgba(90, 50, 150, 0.18)");
-      neb.addColorStop(0.3, "rgba(30, 20,  90, 0.10)");
-      neb.addColorStop(0.7, "rgba(10, 10,  40, 0.05)");
-      neb.addColorStop(1,   "rgba(0,  0,   0,  0)");
-      ctx.fillStyle = neb;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // off-center secondary nebula for depth
-      const neb2 = ctx.createRadialGradient(cx * 0.4, cy * 0.6, 0, cx * 0.4, cy * 0.6, maxR * 0.35);
-      neb2.addColorStop(0,   "rgba(20, 60, 120, 0.10)");
-      neb2.addColorStop(1,   "rgba(0,  0,  0,   0)");
-      ctx.fillStyle = neb2;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (nebGrad) {
+        ctx.fillStyle = nebGrad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      if (!mobile && neb2Grad) {
+        ctx.fillStyle = neb2Grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       for (const s of stars) {
         const theta = s.angle + ts * s.orbitSpeed;
         const d = s.dist * maxR;
         const x = cx + Math.cos(theta) * d;
-        const y = cy + Math.sin(theta) * (d * 0.55); // flatten vertically → elliptical galaxy
+        const y = cy + Math.sin(theta) * (d * 0.55);
 
         if (x < -30 || x > canvas.width + 30 || y < -30 || y > canvas.height + 30) continue;
 
         const glow = (Math.sin(ts * s.twinkleSpeed + s.twinklePhase) + 1) / 2;
-        // glitter: occasionally spike to full brightness then drop fast
         const glitter = Math.pow(glow, 2.2);
         const alpha = 0.15 + glitter * 0.85;
         const r = s.size * (0.65 + glitter * 0.7);
         const col = COLORS[s.colorIdx];
         const [cr, cg, cb] = col;
 
-        // outer halo
-        const halo = ctx.createRadialGradient(x, y, 0, x, y, r * 6);
-        halo.addColorStop(0, `rgba(${cr},${cg},${cb},${alpha * 0.35})`);
-        halo.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
-        ctx.beginPath();
-        ctx.arc(x, y, r * 6, 0, Math.PI * 2);
-        ctx.fillStyle = halo;
-        ctx.fill();
+        // Skip expensive per-star halo gradient on mobile
+        if (!mobile) {
+          const halo = ctx.createRadialGradient(x, y, 0, x, y, r * 6);
+          halo.addColorStop(0, `rgba(${cr},${cg},${cb},${alpha * 0.35})`);
+          halo.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+          ctx.beginPath();
+          ctx.arc(x, y, r * 6, 0, Math.PI * 2);
+          ctx.fillStyle = halo;
+          ctx.fill();
+        }
 
-        // core dot
         ctx.beginPath();
         ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${cr},${cg},${cb},${alpha})`;
         ctx.fill();
 
-        // sparkle cross — only on bright stars, only when near peak brightness
-        if (s.isBright && glitter > 0.45) {
+        // Sparkle cross — desktop only
+        if (!mobile && s.isBright && glitter > 0.45) {
           drawSparkle(x, y, r, (glitter - 0.45) / 0.55 * alpha * 0.85, col);
         }
       }
-
-      raf = requestAnimationFrame(draw);
     };
 
     const ro = new ResizeObserver(resize);
