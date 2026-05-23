@@ -115,6 +115,7 @@ export function About() {
             src="/optimized/2.2-orig.png"
             alt=""
             aria-hidden
+            loading="lazy"
             className="absolute bottom-0 right-8 w-[28rem] lg:w-[36rem] object-contain object-bottom pointer-events-none"
             animate={{
               filter: [
@@ -138,6 +139,7 @@ export function About() {
             src="/optimized/2.1-orig.png"
             alt=""
             aria-hidden
+            loading="lazy"
             className="absolute top-1/2 -translate-y-1/2 left-0 w-[20rem] lg:w-[26rem] object-contain pointer-events-none"
             animate={{
               filter: [

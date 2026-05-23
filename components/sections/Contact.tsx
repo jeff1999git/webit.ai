@@ -11,7 +11,7 @@ function BlinkingFigure() {
     <div className="relative w-full max-w-sm mx-auto select-none overflow-hidden">
       {/* invisible spacer — locks container to 3.1.png's natural aspect ratio */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/optimized/3.1-orig.webp" alt="" aria-hidden className="w-full h-auto invisible" />
+      <img src="/optimized/3.1-orig.webp" alt="" aria-hidden loading="lazy" className="w-full h-auto invisible" />
 
       {/* closed eyes base */}
       <picture>
@@ -35,6 +35,7 @@ function BlinkingFigure() {
             src="/optimized/3.2-orig.png"
             alt=""
             aria-hidden
+            loading="lazy"
             className="w-full h-full object-contain object-top"
             animate={{ opacity: [0, 0, 1, 1] }}
             transition={{

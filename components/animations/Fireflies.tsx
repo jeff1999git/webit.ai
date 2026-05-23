@@ -20,6 +20,7 @@ export function Fireflies() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia("(pointer: coarse)").matches) return; // skip on mobile
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 

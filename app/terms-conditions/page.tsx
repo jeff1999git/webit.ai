@@ -5,17 +5,17 @@ export const metadata = { title: "Terms & Conditions — WebitAi" };
 
 export default function TermsConditionsPage() {
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <main className="relative min-h-screen flex flex-col overflow-hidden">
       <Navbar />
       <StarField />
 
-      <div className="relative z-10 container mx-auto px-6 max-w-2xl py-24">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-2">
+      <div className="relative z-10 container mx-auto px-6 max-w-2xl pt-32 pb-24">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-2 [text-shadow:0_2px_24px_rgba(0,0,0,0.9),0_0_48px_rgba(0,0,0,0.7)]">
           Terms & Conditions
         </h1>
-        <p className="text-xs text-foreground/30 mb-10">Last updated: May 2026</p>
+        <p className="text-xs text-foreground/30 mb-10 [text-shadow:0_1px_10px_rgba(0,0,0,0.95)]">Last updated: May 2026</p>
 
-        <div className="space-y-8 text-foreground/60 leading-relaxed text-sm">
+        <div className="space-y-8 text-foreground/60 leading-relaxed text-sm [text-shadow:0_1px_10px_rgba(0,0,0,0.95)]">
           <section>
             <h2 className="text-base font-semibold text-foreground mb-2">1. Acceptance of Terms</h2>
             <p>
