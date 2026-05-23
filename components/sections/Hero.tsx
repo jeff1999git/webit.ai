@@ -189,7 +189,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
             className="text-sm text-white/90 leading-relaxed mb-6 drop-shadow-sm"
           >
-            Built entirely with vibe coding in just 3 days — not a single line of code written by hand. Just AI, prompts, and a vision. View in big screen to see the full effect.{" "}
+            Built entirely with vibe coding in just half day, not a single line of code written by hand. Just AI, prompts, and a vision. View in big screen to see the full effect.{" "}
           </motion.p>
 
           {/* CTAs */}
