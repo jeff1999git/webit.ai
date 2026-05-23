@@ -105,51 +105,72 @@ export function About() {
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
       />
 
-      {/* bottom-anchored glowing figure */}
-      <picture>
-        <source srcSet="/optimized/2.2-orig.avif" type="image/avif" />
-        <source srcSet="/optimized/2.2-orig.webp" type="image/webp" />
-        <motion.img
-          // eslint-disable-next-line @next/next/no-img-element
-          src="/optimized/2.2-orig.png"
-          alt=""
-          aria-hidden
-          className="absolute bottom-0 right-8 w-[36rem] object-contain object-bottom pointer-events-none"
-          animate={{
-            filter: [
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            ],
-          }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </picture>
+      {/* bottom-anchored glowing figure — desktop only */}
+      <div className="hidden md:block">
+        <picture>
+          <source srcSet="/optimized/2.2-orig.avif" type="image/avif" />
+          <source srcSet="/optimized/2.2-orig.webp" type="image/webp" />
+          <motion.img
+            // eslint-disable-next-line @next/next/no-img-element
+            src="/optimized/2.2-orig.png"
+            alt=""
+            aria-hidden
+            className="absolute bottom-0 right-8 w-[28rem] lg:w-[36rem] object-contain object-bottom pointer-events-none"
+            animate={{
+              filter: [
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+                "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              ],
+            }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </picture>
+      </div>
 
-      {/* side-center glowing figure */}
-      <picture>
-        <source srcSet="/optimized/2.1-orig.avif" type="image/avif" />
-        <source srcSet="/optimized/2.1-orig.webp" type="image/webp" />
-        <motion.img
-          // eslint-disable-next-line @next/next/no-img-element
-          src="/optimized/2.1-orig.png"
-          alt=""
-          aria-hidden
-          className="absolute top-1/2 -translate-y-1/2 left-0 w-[26rem] object-contain pointer-events-none"
-          animate={{
-            filter: [
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            ],
-          }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </picture>
+      {/* side-center glowing figure — desktop only */}
+      <div className="hidden md:block">
+        <picture>
+          <source srcSet="/optimized/2.1-orig.avif" type="image/avif" />
+          <source srcSet="/optimized/2.1-orig.webp" type="image/webp" />
+          <motion.img
+            // eslint-disable-next-line @next/next/no-img-element
+            src="/optimized/2.1-orig.png"
+            alt=""
+            aria-hidden
+            className="absolute top-1/2 -translate-y-1/2 left-0 w-[20rem] lg:w-[26rem] object-contain pointer-events-none"
+            animate={{
+              filter: [
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+                "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              ],
+            }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </picture>
+      </div>
 
-      {/* floating boxes */}
+      {/* mobile layout: static card grid */}
+      <div className="md:hidden relative z-10 w-full px-6 py-8 flex items-center justify-center min-h-screen">
+        <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
+          {BOXES.map((box) => (
+            <div
+              key={box.word}
+              className={`rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 px-4 py-4${box.word === "Build" ? " col-span-2" : ""}`}
+            >
+              <p className="text-sm font-bold text-foreground text-center tracking-wide">{box.word}</p>
+              <p className="text-xs text-foreground/60 text-center mt-2 leading-relaxed">{box.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* desktop layout: floating boxes */}
       {BOXES.map((box) => (
-        <FloatingBox key={box.word} {...box} />
+        <div key={box.word} className="hidden md:block">
+          <FloatingBox {...box} />
+        </div>
       ))}
     </section>
   );

@@ -88,7 +88,7 @@ export function Hero() {
 
         {/* woman — parallax → entrance → float */}
         <motion.div
-          className="absolute left-0 top-[12%]"
+          className="hidden md:block absolute left-0 top-[12%]"
           style={isTouch ? undefined : { x: figX, y: figY }}
         >
           <motion.div
@@ -114,7 +114,7 @@ export function Hero() {
 
         {/* man — parallax → entrance → float */}
         <motion.div
-          className="absolute right-0 top-[34%]"
+          className="hidden md:block absolute right-0 top-[34%]"
           style={isTouch ? undefined : { x: figX, y: figY }}
         >
           <motion.div
@@ -146,7 +146,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [...EASE.enter] }}
-          className="border border-white p-6 w-full max-w-[340px]"
+          className="border border-white p-6 w-full max-w-[420px]"
         >
           {/* question */}
           <motion.p
@@ -187,9 +187,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
-            className="text-sm text-white/50 leading-relaxed mb-6"
+            className="text-sm text-white/90 leading-relaxed mb-6 drop-shadow-sm"
           >
-            Built entirely with vibe coding — not a single line of code written by hand. Just AI, prompts, and a vision.
+            Built entirely with vibe coding in just 3 days — not a single line of code written by hand. Just AI, prompts, and a vision. View in big screen to see the full effect.{" "}
           </motion.p>
 
           {/* CTAs */}

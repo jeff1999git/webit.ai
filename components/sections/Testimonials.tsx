@@ -31,7 +31,7 @@ export function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-32 overflow-hidden"
+      className="relative py-20 md:py-32 overflow-hidden"
     >
       <div
         aria-hidden
@@ -39,7 +39,7 @@ export function Testimonials() {
       />
 
       <div className="container mx-auto px-6">
-        <div className="mb-20 text-center max-w-xl mx-auto">
+        <div className="mb-12 md:mb-20 text-center max-w-xl mx-auto">
           <SlideUp>
             <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
               Testimonials
@@ -61,7 +61,7 @@ export function Testimonials() {
             <RevealOnScroll
               key={t.author}
               direction="up"
-              className="flex flex-col gap-6 rounded-2xl border border-surface-border bg-surface p-8"
+              className="flex flex-col gap-6 rounded-2xl border border-surface-border bg-surface p-6 md:p-8"
             >
               {/* Stars */}
               <div className="flex gap-1">
