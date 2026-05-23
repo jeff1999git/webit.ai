@@ -111,8 +111,8 @@ export function Contact() {
         className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-surface-border to-transparent"
       />
 
-      {/* bottom-anchored blinking figure */}
-      <div className="absolute bottom-0 right-8 w-[42rem] pointer-events-none select-none">
+      {/* bottom-anchored blinking figure — desktop only */}
+      <div className="absolute bottom-0 right-8 w-[42rem] pointer-events-none select-none hidden lg:block">
         <FadeIn delay={0.1}>
           <BlinkingFigure />
         </FadeIn>

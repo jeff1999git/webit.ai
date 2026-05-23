@@ -52,11 +52,11 @@ export function Services() {
   return (
     <section
       id="services"
-      className="relative py-32 overflow-hidden"
+      className="relative py-20 md:py-32 overflow-hidden"
     >
       <div className="container mx-auto px-6">
         {/* Section header */}
-        <div className="mb-20 max-w-2xl">
+        <div className="mb-12 md:mb-20 max-w-2xl">
           <SlideUp>
             <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
               What we do
@@ -76,7 +76,7 @@ export function Services() {
             <RevealOnScroll
               key={service.number}
               direction="up"
-              className="group relative bg-background p-8 hover:bg-surface transition-colors duration-normal ease-smooth"
+              className="group relative bg-background p-6 md:p-8 hover:bg-surface transition-colors duration-normal ease-smooth"
             >
               {/* Future: add hover glow layer here */}
               <div className="flex flex-col h-full gap-4">

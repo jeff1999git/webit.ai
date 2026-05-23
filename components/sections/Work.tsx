@@ -38,7 +38,7 @@ export function Work() {
   return (
     <section
       id="work"
-      className="relative py-32 overflow-hidden"
+      className="relative py-20 md:py-32 overflow-hidden"
     >
       {/* Subtle section separator glow */}
       <div
@@ -48,7 +48,7 @@ export function Work() {
 
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div className="max-w-xl">
             <SlideUp>
               <p className="text-xs font-medium tracking-widest uppercase text-accent mb-4">
