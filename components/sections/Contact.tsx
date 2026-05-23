@@ -122,13 +122,24 @@ export function Contact() {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="max-w-lg">
           <div>
-            <div className="mb-10">
+            <div className="mb-6">
               <SlideUp>
-                <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground leading-tight">
-                  Connect
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight">
+                  Register for Workshop
                 </h2>
               </SlideUp>
+              <SlideUp delay={0.06}>
+                <p className="text-base md:text-lg font-medium text-accent mt-1 tracking-wide">
+                  പഠിക്കാം AI
+                </p>
+              </SlideUp>
             </div>
+
+            <SlideUp delay={0.1}>
+              <p className="text-sm text-foreground/50 leading-relaxed mb-8">
+                Interested in joining our AI website building workshop? Fill in the form below and we&apos;ll get back to you with all the details. Have a question? Drop it in the message box — we&apos;re happy to help.
+              </p>
+            </SlideUp>
 
             <FadeIn delay={0.2}>
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
