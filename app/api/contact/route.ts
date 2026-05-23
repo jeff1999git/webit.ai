@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   const { error } = await resend.emails.send({
     from: "Contact Form <onboarding@resend.dev>",
     to: "jeffdevelop1@gmail.com",
-    subject: "WebApp — New Message",
+    subject: "WebitAi — New Message",
     text: [
       `Name: ${name}`,
       `Email: ${email}`,

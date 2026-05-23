@@ -18,7 +18,7 @@ export function Hero() {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
-  const cyclingWords = ["amet", "ipsum", "dolor"];
+  const cyclingWords = ["WebApp?", "website?", "platform?"];
   const [wordIndex, setWordIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setWordIndex((i) => (i + 1) % cyclingWords.length), 2000);
@@ -155,7 +155,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.7 }}
             className="text-sm font-bold tracking-[0.12em] uppercase text-white mb-4"
           >
-            Lorem ipsum dolor sit{" "}
+            Can Ai make a{" "}
             <span className="inline-block relative">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -166,7 +166,7 @@ export function Hero() {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="inline-block"
                 >
-                  {cyclingWords[wordIndex]}?
+                  {cyclingWords[wordIndex]}
                 </motion.span>
               </AnimatePresence>
             </span>
@@ -179,7 +179,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 0.85 }}
             className="text-3xl md:text-4xl font-bold text-white leading-[1.1] tracking-tight mb-4"
           >
-            Lorem ipsum<br />dolor sit amet.
+            Yes, this website<br />is proof of it.
           </motion.h1>
 
           {/* description */}
@@ -189,9 +189,7 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
             className="text-sm text-white/50 leading-relaxed mb-6"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
-            <span className="text-white/70 font-medium">Sed do eiusmod</span> tempor incididunt
-            ut labore et dolore magna aliqua.
+            Built entirely with vibe coding — not a single line of code written by hand. Just AI, prompts, and a vision.
           </motion.p>
 
           {/* CTAs */}

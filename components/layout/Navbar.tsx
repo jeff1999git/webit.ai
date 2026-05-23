@@ -20,7 +20,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-lg font-bold tracking-tight text-foreground">
-            WebApp
+            WebitAi
           </span>
         </Link>
 
