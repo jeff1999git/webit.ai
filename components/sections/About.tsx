@@ -106,46 +106,50 @@ export function About() {
       />
 
       {/* bottom-anchored glowing figure — desktop only */}
-      <picture className="hidden md:contents">
-        <source srcSet="/optimized/2.2-orig.avif" type="image/avif" />
-        <source srcSet="/optimized/2.2-orig.webp" type="image/webp" />
-        <motion.img
-          // eslint-disable-next-line @next/next/no-img-element
-          src="/optimized/2.2-orig.png"
-          alt=""
-          aria-hidden
-          className="hidden md:block absolute bottom-0 right-8 w-[28rem] lg:w-[36rem] object-contain object-bottom pointer-events-none"
-          animate={{
-            filter: [
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            ],
-          }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </picture>
+      <div className="hidden md:block">
+        <picture>
+          <source srcSet="/optimized/2.2-orig.avif" type="image/avif" />
+          <source srcSet="/optimized/2.2-orig.webp" type="image/webp" />
+          <motion.img
+            // eslint-disable-next-line @next/next/no-img-element
+            src="/optimized/2.2-orig.png"
+            alt=""
+            aria-hidden
+            className="absolute bottom-0 right-8 w-[28rem] lg:w-[36rem] object-contain object-bottom pointer-events-none"
+            animate={{
+              filter: [
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+                "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              ],
+            }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </picture>
+      </div>
 
       {/* side-center glowing figure — desktop only */}
-      <picture className="hidden md:contents">
-        <source srcSet="/optimized/2.1-orig.avif" type="image/avif" />
-        <source srcSet="/optimized/2.1-orig.webp" type="image/webp" />
-        <motion.img
-          // eslint-disable-next-line @next/next/no-img-element
-          src="/optimized/2.1-orig.png"
-          alt=""
-          aria-hidden
-          className="hidden md:block absolute top-1/2 -translate-y-1/2 left-0 w-[20rem] lg:w-[26rem] object-contain pointer-events-none"
-          animate={{
-            filter: [
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-              "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
-              "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
-            ],
-          }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </picture>
+      <div className="hidden md:block">
+        <picture>
+          <source srcSet="/optimized/2.1-orig.avif" type="image/avif" />
+          <source srcSet="/optimized/2.1-orig.webp" type="image/webp" />
+          <motion.img
+            // eslint-disable-next-line @next/next/no-img-element
+            src="/optimized/2.1-orig.png"
+            alt=""
+            aria-hidden
+            className="absolute top-1/2 -translate-y-1/2 left-0 w-[20rem] lg:w-[26rem] object-contain pointer-events-none"
+            animate={{
+              filter: [
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+                "drop-shadow(0 0 32px rgba(255,255,255,0.75))",
+                "drop-shadow(0 0 8px rgba(255,255,255,0.25))",
+              ],
+            }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </picture>
+      </div>
 
       {/* mobile layout: static card grid */}
       <div className="md:hidden relative z-10 w-full px-6 py-8 flex items-center justify-center min-h-screen">
