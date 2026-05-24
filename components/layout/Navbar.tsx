@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Services", href: "/#about" },
@@ -22,6 +23,7 @@ export function Navbar() {
       <div className="py-5 container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
+          <Image src="/webitai-logo.png" alt="WebitAi logo" width={28} height={28} className="object-contain" />
           <span className="text-lg font-bold tracking-tight text-foreground">
             WebitAi
           </span>
