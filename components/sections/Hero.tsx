@@ -18,7 +18,7 @@ export function Hero() {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
-  const cyclingWords = ["WebApp?", "website?", "platform?"];
+  const cyclingWords = ["WebTool?", "website?", "platform?"];
   const [wordIndex, setWordIndex] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setWordIndex((i) => (i + 1) % cyclingWords.length), 2000);
@@ -189,7 +189,8 @@ export function Hero() {
             transition={{ duration: DURATION.slow, ease: [...EASE.enter], delay: 1.0 }}
             className="text-sm text-white/90 leading-relaxed mb-6 drop-shadow-sm"
           >
-            Built entirely with vibe coding in just half day, not a single line of code typed by hand. Just AI, prompts, and a vision. View in big screen to see the full effect.{" "}
+            Built entirely with vibe coding in just half day, not a single line of code typed by hand. Just AI, prompts, and a vision.{" "}
+            <span className="md:hidden">View in big screen to see the full effect.</span>
           </motion.p>
 
           {/* CTAs */}
