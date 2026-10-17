@@ -64,10 +64,10 @@ export function Services() {
                   href={`/services#${service.slug}`}
                   variant="text"
                   arrow
-                  aria-label={`Learn more about ${service.title}`}
                   className="self-start pt-2"
                 >
-                  Learn more
+                  {/* hidden suffix keeps the link text descriptive for search engines and screen readers */}
+                  Learn more<span className="sr-only"> about {service.title}</span>
                 </ButtonLink>
               </div>
             </RevealOnScroll>

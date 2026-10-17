@@ -23,7 +23,6 @@ const directionVariants: Record<Direction, Variants> = {
 
 /**
  * RevealOnScroll — flexible scroll-triggered reveal in any direction.
- * Future: extend with clip-path, parallax depth, and stagger support.
  */
 export function RevealOnScroll({
   children,

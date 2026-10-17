@@ -28,7 +28,7 @@ import {
 // ─────────────────────────────────────────────
 
 const controlBase =
-  "w-full rounded-xl bg-surface border border-surface-border px-4 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-accent/60 focus-visible:ring-2 focus-visible:ring-accent/70 transition-colors duration-fast";
+  "w-full rounded-xl bg-surface border border-surface-border px-4 text-sm text-foreground placeholder:text-foreground/50 focus:outline-none focus:border-accent/60 focus-visible:ring-2 focus-visible:ring-accent/70 transition-colors duration-fast";
 const controlError = "border-red-400/60 focus:border-red-400/80 focus-visible:ring-red-400/20";
 
 const fieldId = (field: EnquiryField) => `enquiry-${field}`;

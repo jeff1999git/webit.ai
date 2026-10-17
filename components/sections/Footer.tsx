@@ -13,7 +13,7 @@ interface ContactItem {
   label: string;
   href: string | null;
   external?: boolean;
-  /** Rendered as a copy-on-click email link instead of a plain anchor. */
+  /** Rendered as an EmailLink (Gmail compose) instead of a plain anchor. */
   email?: string;
 }
 

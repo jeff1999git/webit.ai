@@ -1,7 +1,6 @@
 // ─────────────────────────────────────────────
 // Global Animation Configuration
 // Centralised presets for Framer Motion & CSS.
-// Add cinematic variants here as design evolves.
 // ─────────────────────────────────────────────
 
 export const DURATION = {
@@ -22,11 +21,7 @@ export const EASE = {
 // Transition presets — pass directly to Framer Motion `transition` prop
 export const TRANSITION = {
   default: { duration: DURATION.normal, ease: EASE.smooth },
-  fast: { duration: DURATION.fast, ease: EASE.smooth },
   slow: { duration: DURATION.slow, ease: EASE.enter },
-  spring: { type: "spring" as const, stiffness: 300, damping: 30 },
-  springBouncy: { type: "spring" as const, stiffness: 400, damping: 20 },
-  cinematic: { duration: DURATION.cinematic, ease: EASE.cinematic },
 };
 
 // Variant presets — compose into Framer Motion `variants` prop
@@ -55,7 +50,6 @@ export const VARIANTS = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1, transition: TRANSITION.default },
   },
-  // Future: cinematic, parallax, clip-path reveal variants go here
 };
 
 // Stagger config — for parent containers with staggered children
@@ -71,8 +65,3 @@ export const VIEWPORT = {
   amount: 0.15,
 } as const;
 
-// Viewport eager — trigger sooner
-export const VIEWPORT_EAGER = {
-  once: true,
-  amount: 0.05,
-} as const;

@@ -2,7 +2,30 @@
 
 import { useEffect, useRef } from "react";
 
-export function Glitter({ count = 70 }: { count?: number }) {
+const PARTICLE_COUNT = 70;
+const GLOW_SPRITE_R = 16; // drawn scaled to r * 5
+
+// The glow is pre-rendered once at full strength and stamped with globalAlpha,
+// instead of building a gradient for every particle on every frame.
+function makeGlowSprite() {
+  const sprite = document.createElement("canvas");
+  sprite.width = sprite.height = GLOW_SPRITE_R * 2;
+  const ctx = sprite.getContext("2d");
+  if (ctx) {
+    const R = GLOW_SPRITE_R;
+    const g = ctx.createRadialGradient(R, R, 0, R, R, R);
+    g.addColorStop(0, "rgba(255,252,210,0.85)");
+    g.addColorStop(0.35, "rgba(255,248,180,0.22)");
+    g.addColorStop(1, "rgba(255,245,150,0)");
+    ctx.beginPath();
+    ctx.arc(R, R, R, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+  }
+  return sprite;
+}
+
+export function Glitter() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<number>(0);
 
@@ -16,7 +39,9 @@ export function Glitter({ count = 70 }: { count?: number }) {
     let running = false;
     let inView = false; // set by the IntersectionObserver's first callback
 
-    const particles = Array.from({ length: count }, () => ({
+    const glowSprite = makeGlowSprite();
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * canvas.offsetWidth,
       y: Math.random() * canvas.offsetHeight,
       r: Math.random() * 1.0 + 0.4,
@@ -51,23 +76,19 @@ export function Glitter({ count = 70 }: { count?: number }) {
           if (p.opacity <= 0) { p.opacity = 0; p.dOpacity = Math.abs(p.dOpacity); }
         }
 
+        ctx.globalAlpha = p.opacity;
+
         // Soft glow halo
         const glow = p.r * 5;
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glow);
-        g.addColorStop(0, `rgba(255,252,210,${p.opacity * 0.85})`);
-        g.addColorStop(0.35, `rgba(255,248,180,${p.opacity * 0.22})`);
-        g.addColorStop(1, "rgba(255,245,150,0)");
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, glow, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
+        ctx.drawImage(glowSprite, p.x - glow, p.y - glow, glow * 2, glow * 2);
 
         // Bright core
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+        ctx.fillStyle = "#fff";
         ctx.fill();
       }
+      ctx.globalAlpha = 1;
     };
 
     const tick = () => {
@@ -111,7 +132,7 @@ export function Glitter({ count = 70 }: { count?: number }) {
       io.disconnect();
       document.removeEventListener("visibilitychange", sync);
     };
-  }, [count]);
+  }, []);
 
   return (
     <canvas

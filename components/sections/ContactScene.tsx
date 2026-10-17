@@ -7,11 +7,8 @@ import { cn } from "@/lib/utils";
 
 function BlinkingFigure() {
   return (
-    <div className="relative w-full max-w-sm mx-auto select-none overflow-hidden">
-      {/* invisible spacer — locks container to 3.1.png's natural aspect ratio */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/optimized/3.1-orig.webp" alt="" aria-hidden loading="lazy" className="w-full h-auto invisible" />
-
+    // aspect ratio of 3.1-orig (811×1082) — sizes the box without a spacer image
+    <div className="relative w-full max-w-sm mx-auto select-none overflow-hidden aspect-[811/1082]">
       {/* closed eyes base */}
       <picture>
         <source srcSet="/optimized/3.1-orig.avif" type="image/avif" />
@@ -21,6 +18,7 @@ function BlinkingFigure() {
           src="/optimized/3.1-orig.png"
           alt=""
           aria-hidden
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-contain object-top"
         />
       </picture>

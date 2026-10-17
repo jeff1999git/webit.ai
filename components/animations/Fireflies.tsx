@@ -14,6 +14,49 @@ interface Firefly {
   wanderSpeed: number;
 }
 
+// Glows are pre-rendered sprites stamped with drawImage + globalAlpha, rather
+// than two new gradients per fly per frame. The colour warms with the blink,
+// so sprites are cached per blink step; 64 steps keep each colour within about
+// one RGB unit of the exact value.
+const BLINK_STEPS = 64;
+const HALO_SPRITE_R = 32; // drawn scaled to r * 9
+const MID_SPRITE_R = 16;  // drawn scaled to r * 3
+
+interface GlowSprites {
+  halo: HTMLCanvasElement;
+  mid: HTMLCanvasElement;
+  core: string;
+}
+
+function makeGlow(radius: number, rgb: string, alpha: number) {
+  const sprite = document.createElement("canvas");
+  sprite.width = sprite.height = radius * 2;
+  const ctx = sprite.getContext("2d");
+  if (ctx) {
+    const grad = ctx.createRadialGradient(radius, radius, 0, radius, radius, radius);
+    grad.addColorStop(0, `rgba(${rgb},${alpha})`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    ctx.beginPath();
+    ctx.arc(radius, radius, radius, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+  return sprite;
+}
+
+function makeGlowSprites(step: number): GlowSprites {
+  const blink = step / (BLINK_STEPS - 1);
+  // warm yellow-green firefly colour
+  const rr = Math.round(180 + blink * 75);
+  const gg = Math.round(220 + blink * 35);
+  const bb = Math.round(60 + blink * 20);
+  return {
+    halo: makeGlow(HALO_SPRITE_R, `${rr},${gg},${bb}`, 0.3),
+    mid: makeGlow(MID_SPRITE_R, `${rr},${gg},${bb}`, 0.7),
+    core: `rgb(${rr},${gg},${bb + 80})`,
+  };
+}
+
 export function Fireflies() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -30,6 +73,7 @@ export function Fireflies() {
     let flies: Firefly[] = [];
     let last = -1;      // previous frame timestamp; -1 = first frame after (re)start
     let elapsed = 0;    // seconds of animation actually played (excludes pauses)
+    const sprites: (GlowSprites | undefined)[] = [];
 
     const build = () => {
       const count = Math.max(18, Math.floor((canvas.width * canvas.height) / 28000));
@@ -73,35 +117,25 @@ export function Fireflies() {
         const alpha = 0.08 + blink * 0.92;
         const r = f.radius * (0.6 + blink * 0.7);
 
-        // warm yellow-green firefly colour
-        const rr = Math.round(180 + blink * 75);
-        const gg = Math.round(220 + blink * 35);
-        const bb = Math.round(60 + blink * 20);
+        const step = Math.round(blink * (BLINK_STEPS - 1));
+        const glow = (sprites[step] ??= makeGlowSprites(step));
+        ctx.globalAlpha = alpha;
 
         // outer soft halo
-        const halo = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r * 9);
-        halo.addColorStop(0, `rgba(${rr},${gg},${bb},${alpha * 0.3})`);
-        halo.addColorStop(1, `rgba(${rr},${gg},${bb},0)`);
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, r * 9, 0, Math.PI * 2);
-        ctx.fillStyle = halo;
-        ctx.fill();
+        const hr = r * 9;
+        ctx.drawImage(glow.halo, f.x - hr, f.y - hr, hr * 2, hr * 2);
 
         // inner mid glow
-        const mid = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, r * 3);
-        mid.addColorStop(0, `rgba(${rr},${gg},${bb},${alpha * 0.7})`);
-        mid.addColorStop(1, `rgba(${rr},${gg},${bb},0)`);
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, r * 3, 0, Math.PI * 2);
-        ctx.fillStyle = mid;
-        ctx.fill();
+        const mr = r * 3;
+        ctx.drawImage(glow.mid, f.x - mr, f.y - mr, mr * 2, mr * 2);
 
         // bright core dot
         ctx.beginPath();
         ctx.arc(f.x, f.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${rr},${gg},${bb + 80},${alpha})`;
+        ctx.fillStyle = glow.core;
         ctx.fill();
       }
+      ctx.globalAlpha = 1;
     };
 
     const draw = (t: number) => {

@@ -98,15 +98,15 @@ export function Process() {
       aria-labelledby={HEADING_ID}
       className="relative min-h-screen md:min-h-[max(100vh,40rem)] flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* static background */}
-      <div
+      {/* static background — an <img> rather than a CSS background so it can lazy-load */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/optimized/2-orig.webp"
+        alt=""
         aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: "url('/optimized/2-orig.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 -z-10 h-full w-full object-cover object-center"
       />
 
       <Fireflies />

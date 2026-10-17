@@ -64,6 +64,13 @@ function recordSubmission(ip: string, now: number) {
   submissions.set(ip, [...(submissions.get(ip) ?? []), now]);
 }
 
+/** Gives back a slot taken by recordSubmission when the enquiry wasn't delivered. */
+function releaseSubmission(ip: string, now: number) {
+  const times = submissions.get(ip);
+  const i = times?.lastIndexOf(now) ?? -1;
+  if (times && i >= 0) times.splice(i, 1);
+}
+
 // ─────────────────────────────────────────────
 // Email content
 // ─────────────────────────────────────────────
@@ -99,10 +106,14 @@ function buildText(data: EnquiryInput) {
 // ─────────────────────────────────────────────
 
 export async function POST(req: Request) {
+  const tooLong = () =>
+    reply({ ok: false, error: "Your enquiry is too long. Please shorten it and try again." }, 413);
+
+  // Refuse oversized bodies before reading them when the size is declared
+  // (UTF-8 bytes can be up to 4× the character count, hence the allowance).
+  if (Number(req.headers.get("content-length")) > MAX_BODY_CHARS * 4) return tooLong();
   const raw = await req.text();
-  if (raw.length > MAX_BODY_CHARS) {
-    return reply({ ok: false, error: "Your enquiry is too long. Please shorten it and try again." }, 413);
-  }
+  if (raw.length > MAX_BODY_CHARS) return tooLong();
 
   let parsed: unknown;
   try {
@@ -123,7 +134,10 @@ export async function POST(req: Request) {
     return reply({ ok: false, error: "Please check the highlighted fields.", fieldErrors }, 400);
   }
 
-  // Only valid submissions count towards the limit.
+  // Only valid enquiries count towards the limit. The slot is taken before
+  // the send (no await between check and record, so parallel requests can't
+  // all slip past) and given back if delivery fails, so a visitor retrying
+  // after a failure isn't locked out.
   const ip = clientIp(req);
   const now = Date.now();
   pruneSubmissions(now);
@@ -143,6 +157,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   if (!apiKey) {
     console.error("[contact] RESEND_API_KEY is not set — enquiry not sent.");
+    releaseSubmission(ip, now);
     return reply(
       {
         ok: false,
@@ -172,10 +187,12 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error("[contact] Resend rejected the enquiry email:", error);
+      releaseSubmission(ip, now);
       return reply({ ok: false, error: sendFailed }, 502);
     }
   } catch (err) {
     console.error("[contact] Failed to reach Resend:", err);
+    releaseSubmission(ip, now);
     return reply({ ok: false, error: sendFailed }, 502);
   }
 

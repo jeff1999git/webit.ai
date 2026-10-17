@@ -76,7 +76,6 @@ components/
   contact/                 EnquiryForm
   animations/              Motion wrappers and background scenes (StarField, Glitter, Fireflies, …)
   ui/                      Small shared pieces (ButtonLink, Icon, SectionHeader, GradientText, …)
-  providers/               MotionProvider (respects the visitor's reduced-motion setting)
 content/                   Editable site content (see below)
 lib/                       Enquiry form rules, animation presets, utilities
 scripts/                   Image optimisation and icon generation

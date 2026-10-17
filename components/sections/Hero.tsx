@@ -25,7 +25,13 @@ const MotionLink = motion.create(Link);
 
 // Background box is 160px larger than the viewport (-inset-20); the 4095×2489
 // image covers it by height on portrait-ish screens and by width otherwise.
+// Capped at 1920w: the photo sits under a 55% black overlay, so the 4K
+// original (1.2 MB) added weight without visible detail.
 const BG_SIZES = "(max-aspect-ratio: 1645/1000) calc((100vh + 160px) * 1.645), calc(100vw + 160px)";
+// Portrait screens only ever show the middle of the photo, so they get a 3:4
+// centre crop of it — object-cover shows the same area as with the full image.
+const BG_PORTRAIT_MEDIA = "(max-aspect-ratio: 2/3)";
+const BG_PORTRAIT_SIZES = "calc((100vh + 160px) * 0.75)";
 
 // Figures are hidden below md — the 1×1 fallback means phones download nothing.
 const FIGURE_MEDIA = "(min-width: 768px)";
@@ -48,6 +54,39 @@ function FigureSources({ name }: { name: string }) {
   );
 }
 
+/** Owns the cycling timer, so each tick re-renders this span instead of the whole hero. */
+function CyclingWord() {
+  const [wordIndex, setWordIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setWordIndex((i) => (i + 1) % CYCLING_WORDS.length), CYCLE_INTERVAL_MS);
+    return () => clearInterval(id);
+  }, []);
+  const activeWord = CYCLING_WORDS[wordIndex];
+
+  return (
+    // every word shares one grid cell, so the widest reserves the width
+    <span className="inline-grid">
+      {CYCLING_WORDS.map((word) => (
+        <span key={word} className="invisible col-start-1 row-start-1">
+          {word}
+        </span>
+      ))}
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={activeWord}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="col-start-1 row-start-1"
+        >
+          {activeWord}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   // Detect touch/pointer-coarse devices — disable all motion on those
@@ -55,13 +94,6 @@ export function Hero() {
   useEffect(() => {
     setIsStill(window.matchMedia("(pointer: coarse)").matches);
   }, []);
-
-  const [wordIndex, setWordIndex] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setWordIndex((i) => (i + 1) % CYCLING_WORDS.length), CYCLE_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, []);
-  const activeWord = CYCLING_WORDS[wordIndex];
 
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -96,26 +128,33 @@ export function Hero() {
       onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden isolate"
     >
-      {/* parallax background — static on touch devices / reduced motion */}
+      {/* parallax background — static on touch devices */}
       <motion.div
         aria-hidden
         style={isStill ? undefined : { x: bgX, y: bgY }}
         className="absolute -inset-20 -z-20"
       >
+        {/* WebP only: for this photo it is smaller than AVIF at every width */}
         <picture>
           <source
-            type="image/avif"
-            srcSet="/optimized/1-640w.avif 640w, /optimized/1-1080w.avif 1080w, /optimized/1-1920w.avif 1920w, /optimized/1-orig.avif 4095w"
-            sizes={BG_SIZES}
+            media={BG_PORTRAIT_MEDIA}
+            type="image/webp"
+            srcSet="/optimized/1-portrait-1080w.webp 1080w, /optimized/1-portrait-1440w.webp 1440w"
+            sizes={BG_PORTRAIT_SIZES}
+          />
+          <source
+            media={BG_PORTRAIT_MEDIA}
+            srcSet="/optimized/1-portrait-1080w.jpg 1080w, /optimized/1-portrait-1440w.jpg 1440w"
+            sizes={BG_PORTRAIT_SIZES}
           />
           <source
             type="image/webp"
-            srcSet="/optimized/1-640w.webp 640w, /optimized/1-1080w.webp 1080w, /optimized/1-1920w.webp 1920w, /optimized/1-orig.webp 4095w"
+            srcSet="/optimized/1-640w.webp 640w, /optimized/1-1080w.webp 1080w, /optimized/1-1920w.webp 1920w"
             sizes={BG_SIZES}
           />
           <img
             src="/optimized/1-1920w.jpg"
-            srcSet="/optimized/1-640w.jpg 640w, /optimized/1-1080w.jpg 1080w, /optimized/1-1920w.jpg 1920w, /optimized/1-orig.jpg 4095w"
+            srcSet="/optimized/1-640w.jpg 640w, /optimized/1-1080w.jpg 1080w, /optimized/1-1920w.jpg 1920w"
             sizes={BG_SIZES}
             alt=""
             fetchPriority="high"
@@ -208,27 +247,7 @@ export function Hero() {
           >
             <span className="sr-only">Built for small businesses, startups and growing companies</span>
             <span aria-hidden>
-              Built for{" "}
-              {/* every word shares one grid cell, so the widest reserves the width */}
-              <span className="inline-grid">
-                {CYCLING_WORDS.map((word) => (
-                  <span key={word} className="invisible col-start-1 row-start-1">
-                    {word}
-                  </span>
-                ))}
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={activeWord}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="col-start-1 row-start-1"
-                  >
-                    {activeWord}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
+              Built for <CyclingWord />
             </span>
           </motion.p>
 

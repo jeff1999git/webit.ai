@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 interface GradientTextProps {
   children: React.ReactNode;
   className?: string;
-  // Future: allow different gradient directions/stops
   variant?: "purple" | "blue" | "warm";
 }
 
@@ -15,7 +14,6 @@ const gradients = {
 
 /**
  * GradientText — animated gradient shimmer on text.
- * Future: animate backgroundPosition for shimmer sweep effect.
  */
 export function GradientText({
   children,

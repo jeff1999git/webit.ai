@@ -5,7 +5,7 @@ import { EnquiryForm } from "@/components/contact/EnquiryForm";
 import { ContactScene } from "@/components/sections/ContactScene";
 import { EmailLink } from "@/components/ui/EmailLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { phoneHref, site, whatsappHref } from "@/content/site";
+import { gmailComposeHref, phoneHref, site, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact — Start a Project",
@@ -36,7 +36,7 @@ function directOptions(): DirectOption[] {
   const tel = phoneHref();
   const whatsapp = whatsappHref();
 
-  if (email) options.push({ icon: "mail", label: "Email", value: email, href: `mailto:${email}`, email });
+  if (email) options.push({ icon: "mail", label: "Email", value: email, href: gmailComposeHref(email), email });
   if (phone && tel) options.push({ icon: "phone", label: "Phone", value: phone, href: tel });
   if (whatsapp) {
     options.push({ icon: "message", label: "WhatsApp", value: "Chat with us", href: whatsapp, external: true });
