@@ -5,20 +5,24 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./content/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        // Channel-based so opacity modifiers (text-foreground/60, border-accent/40…)
+        // generate CSS; plain var() colours silently drop the modifier in Tailwind 3.
+        background: "rgb(var(--background-rgb) / <alpha-value>)",
+        foreground: "rgb(var(--foreground-rgb) / <alpha-value>)",
         accent: {
-          DEFAULT: "var(--accent)",
-          muted: "var(--accent-muted)",
+          DEFAULT: "rgb(var(--accent-rgb) / <alpha-value>)",
+          muted: "rgb(var(--accent-muted-rgb) / <alpha-value>)",
           glow: "var(--accent-glow)",
         },
         surface: {
-          DEFAULT: "var(--surface)",
-          elevated: "var(--surface-elevated)",
+          DEFAULT: "rgb(var(--surface-rgb) / <alpha-value>)",
+          elevated: "rgb(var(--surface-elevated-rgb) / <alpha-value>)",
           border: "var(--surface-border)",
         },
       },

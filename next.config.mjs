@@ -9,12 +9,22 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  eslint: {
+    // Default dirs plus the content configuration.
+    dirs: ["app", "components", "lib", "content"],
+  },
   async headers() {
     return [
       {
         source: "/(.*)",
         headers: securityHeaders,
       },
+    ];
+  },
+  async redirects() {
+    return [
+      // The About page moved from /about-us to /about.
+      { source: "/about-us", destination: "/about", permanent: true },
     ];
   },
 };

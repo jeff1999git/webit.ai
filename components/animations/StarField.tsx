@@ -32,16 +32,20 @@ export function StarField() {
     const mobile = window.matchMedia("(pointer: coarse)").matches;
     const TARGET_MS = mobile ? 1000 / 24 : 0; // 24 fps cap on mobile
 
-    let raf: number;
+    let raf = 0;
+    let running = false;
+    let inView = false; // set by the IntersectionObserver's first callback
     let stars: Star[] = [];
     let nebGrad: CanvasGradient | null = null;
     let neb2Grad: CanvasGradient | null = null;
-    let lastDraw = 0;
+    // Animation clock in ms. It only advances while the loop runs, so the
+    // orbit resumes exactly where it paused instead of jumping ahead.
+    let elapsed = 0;
+    let lastFrame = -1; // previous rAF timestamp; -1 = first frame after (re)start
+    let lastDraw = -Infinity;
 
     const build = () => {
       const w = canvas.width, h = canvas.height;
-      const cx = w / 2, cy = h / 2;
-      const maxR = Math.sqrt(cx ** 2 + cy ** 2);
 
       const count = mobile
         ? Math.min(40, Math.max(15, Math.floor((w * h) / 9000)))
@@ -69,7 +73,14 @@ export function StarField() {
         };
       });
 
-      // Cache nebula gradients — recreated on resize, reused every frame
+      buildGradients();
+    };
+
+    // Cache nebula gradients — recreated on resize, reused every frame
+    const buildGradients = () => {
+      const cx = canvas.width / 2, cy = canvas.height / 2;
+      const maxR = Math.sqrt(cx ** 2 + cy ** 2);
+
       nebGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * 0.65);
       nebGrad.addColorStop(0,   "rgba(90, 50, 150, 0.18)");
       nebGrad.addColorStop(0.3, "rgba(30, 20,  90, 0.10)");
@@ -81,12 +92,6 @@ export function StarField() {
         neb2Grad.addColorStop(0, "rgba(20, 60, 120, 0.10)");
         neb2Grad.addColorStop(1, "rgba(0,  0,  0,   0)");
       }
-    };
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      build();
     };
 
     const drawSparkle = (
@@ -133,16 +138,10 @@ export function StarField() {
       ctx.restore();
     };
 
-    const draw = (t: number) => {
-      raf = requestAnimationFrame(draw);
-
-      // Frame throttle on mobile — skip work, keep the loop alive
-      if (mobile && t - lastDraw < TARGET_MS) return;
-      lastDraw = t;
-
+    // Draws the sky at animation time `ts` (seconds)
+    const render = (ts: number) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const ts = t / 1000;
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
       const maxR = Math.sqrt(cx ** 2 + cy ** 2);
@@ -194,14 +193,62 @@ export function StarField() {
       }
     };
 
+    const draw = (t: number) => {
+      raf = requestAnimationFrame(draw);
+
+      if (lastFrame >= 0) elapsed += t - lastFrame;
+      lastFrame = t;
+
+      // Frame throttle on mobile — skip work, keep the loop alive
+      if (mobile && elapsed - lastDraw < TARGET_MS) return;
+      lastDraw = elapsed;
+
+      render(elapsed / 1000);
+    };
+
+    // Run only while visible on screen and in a visible tab
+    const sync = () => {
+      const shouldRun = inView && !document.hidden;
+      if (shouldRun && !running) {
+        running = true;
+        lastFrame = -1;
+        raf = requestAnimationFrame(draw);
+      } else if (!shouldRun && running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+      if (!running) render(elapsed / 1000); // keep a static frame on screen
+    };
+
+    const resize = () => {
+      const widthChanged = canvas.width !== canvas.offsetWidth;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      // Only reshuffle the sky when the width changes. Height-only changes
+      // (e.g. a form growing with validation messages) keep the same stars —
+      // their positions are relative to the canvas, so they simply re-flow.
+      if (widthChanged || stars.length === 0) build();
+      else buildGradients();
+      if (!running) render(elapsed / 1000); // resizing clears the canvas
+    };
+
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     resize();
-    raf = requestAnimationFrame(draw);
+
+    const io = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    });
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", sync);
 
     return () => {
+      running = false;
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", sync);
     };
   }, []);
 

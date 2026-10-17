@@ -2,56 +2,15 @@ import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import { RevealOnScroll } from "@/components/animations/RevealOnScroll";
 import { SlideUp } from "@/components/animations/SlideUp";
 import { GradientText } from "@/components/ui/GradientText";
-
-const services = [
-  {
-    number: "01",
-    title: "Web Development",
-    description:
-      "Production-grade Next.js, React, and full-stack applications built for performance, scalability, and maintainability.",
-    tags: ["Next.js", "TypeScript", "Node.js"],
-  },
-  {
-    number: "02",
-    title: "AI Integration",
-    description:
-      "LLMs, RAG pipelines, and intelligent automation woven into your product to create delightful, smart user experiences.",
-    tags: ["OpenAI", "Claude", "LangChain"],
-  },
-  {
-    number: "03",
-    title: "Design Systems",
-    description:
-      "Component libraries and design systems that empower your team to ship consistent, beautiful UI at speed.",
-    tags: ["Figma", "Tailwind", "Storybook"],
-  },
-  {
-    number: "04",
-    title: "Performance & SEO",
-    description:
-      "Core Web Vitals optimisation, server-side rendering, and technical SEO to drive organic growth.",
-    tags: ["Lighthouse", "Analytics", "Edge"],
-  },
-  {
-    number: "05",
-    title: "SaaS Platforms",
-    description:
-      "End-to-end SaaS architecture — auth, billing, multi-tenancy, dashboards — launched fast and built to scale.",
-    tags: ["Stripe", "Auth.js", "Prisma"],
-  },
-  {
-    number: "06",
-    title: "API & Backend",
-    description:
-      "Robust REST and GraphQL APIs, serverless functions, and database architecture for demanding workloads.",
-    tags: ["Postgres", "Redis", "tRPC"],
-  },
-];
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Icon } from "@/components/ui/Icon";
+import { services } from "@/content/services";
 
 export function Services() {
   return (
     <section
       id="services"
+      aria-labelledby="services-heading"
       className="relative py-20 md:py-32 overflow-hidden"
     >
       <div className="container mx-auto px-6">
@@ -63,45 +22,75 @@ export function Services() {
             </p>
           </SlideUp>
           <SlideUp delay={0.05}>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight">
-              Services built for{" "}
-              <GradientText>modern products</GradientText>
+            <h2
+              id="services-heading"
+              className="text-4xl md:text-5xl font-bold tracking-tight text-foreground leading-tight"
+            >
+              Services built around{" "}
+              <GradientText>your business</GradientText>
             </h2>
+          </SlideUp>
+          <SlideUp delay={0.1}>
+            <p className="mt-5 text-base text-foreground/60 leading-relaxed">
+              From a first website to custom business software, we plan, build and support digital
+              products that fit the way you work.
+            </p>
           </SlideUp>
         </div>
 
-        {/* Services grid */}
+        {/* Services grid — 7 services + a CTA cell that closes the grid evenly
+            (2 columns: 8 cells; 3 columns: 7 + a 2-wide cell). */}
         <StaggerContainer speed="normal" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-surface-border">
           {services.map((service) => (
             <RevealOnScroll
-              key={service.number}
+              key={service.slug}
               direction="up"
               className="group relative bg-background p-6 md:p-8 hover:bg-surface transition-colors duration-normal ease-smooth"
             >
-              {/* Future: add hover glow layer here */}
               <div className="flex flex-col h-full gap-4">
-                <span className="text-xs font-mono text-foreground/20">
-                  {service.number}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono text-foreground/50">
+                    {service.number}
+                  </span>
+                  <Icon name={service.icon} className="h-6 w-6 text-accent" />
+                </div>
                 <h3 className="text-xl font-semibold text-foreground">
                   {service.title}
                 </h3>
-                <p className="text-sm text-foreground/50 leading-relaxed flex-1">
-                  {service.description}
+                <p className="text-sm text-foreground/60 leading-relaxed flex-1">
+                  {service.summary}
                 </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {service.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 rounded-md bg-surface border border-surface-border text-foreground/40"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                <ButtonLink
+                  href={`/services#${service.slug}`}
+                  variant="text"
+                  arrow
+                  aria-label={`Learn more about ${service.title}`}
+                  className="self-start pt-2"
+                >
+                  Learn more
+                </ButtonLink>
               </div>
             </RevealOnScroll>
           ))}
+
+          {/* Enquiry cell */}
+          <RevealOnScroll
+            direction="up"
+            className="relative bg-background p-6 md:p-8 md:col-span-1 lg:col-span-2"
+          >
+            <div className="flex flex-col h-full justify-center gap-4">
+              <h3 className="text-xl font-semibold text-foreground">
+                Not sure what you need?
+              </h3>
+              <p className="text-sm text-foreground/60 leading-relaxed max-w-md">
+                Tell us what you want to achieve and we&apos;ll help you work out the right
+                approach, scope and next steps.
+              </p>
+              <ButtonLink href="/contact" arrow className="self-start mt-2">
+                Tell us about your project
+              </ButtonLink>
+            </div>
+          </RevealOnScroll>
         </StaggerContainer>
       </div>
     </section>

@@ -24,9 +24,12 @@ export function Fireflies() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let raf: number;
+    let raf = 0;
+    let running = false;
+    let inView = false; // set by the IntersectionObserver's first callback
     let flies: Firefly[] = [];
-    let last = 0;
+    let last = -1;      // previous frame timestamp; -1 = first frame after (re)start
+    let elapsed = 0;    // seconds of animation actually played (excludes pauses)
 
     const build = () => {
       const count = Math.max(18, Math.floor((canvas.width * canvas.height) / 28000));
@@ -43,18 +46,11 @@ export function Fireflies() {
       }));
     };
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      build();
-    };
-
-    const draw = (t: number) => {
-      const dt = Math.min((t - last) / 1000, 0.05);
-      last = t;
-
+    // Advances the swarm by dt seconds and draws it (dt = 0 → static frame)
+    const render = (dt: number) => {
+      elapsed += dt;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const ts = t / 1000;
+      const ts = elapsed;
 
       for (const f of flies) {
         // gently steer the wander angle (smooth organic drift)
@@ -106,18 +102,53 @@ export function Fireflies() {
         ctx.fillStyle = `rgba(${rr},${gg},${bb + 80},${alpha})`;
         ctx.fill();
       }
+    };
 
+    const draw = (t: number) => {
+      const dt = last < 0 ? 0 : Math.min((t - last) / 1000, 0.05);
+      last = t;
+      render(dt);
       raf = requestAnimationFrame(draw);
+    };
+
+    // Run only while visible on screen and in a visible tab
+    const sync = () => {
+      const shouldRun = inView && !document.hidden;
+      if (shouldRun && !running) {
+        running = true;
+        last = -1; // resume from where we paused — no time jump
+        raf = requestAnimationFrame(draw);
+      } else if (!shouldRun && running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+      if (!running) render(0); // keep a static frame on screen
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      build();
+      if (!running) render(0); // resizing clears the canvas
     };
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     resize();
-    raf = requestAnimationFrame(draw);
+
+    const io = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      sync();
+    });
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", sync);
 
     return () => {
+      running = false;
       cancelAnimationFrame(raf);
       ro.disconnect();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", sync);
     };
   }, []);
 
