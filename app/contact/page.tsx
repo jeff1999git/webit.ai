@@ -5,7 +5,7 @@ import { EnquiryForm } from "@/components/contact/EnquiryForm";
 import { ContactScene } from "@/components/sections/ContactScene";
 import { EmailLink } from "@/components/ui/EmailLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { gmailComposeHref, phoneHref, site, whatsappHref } from "@/content/site";
+import { phoneHref, site, whatsappHref } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact — Start a Project",
@@ -26,7 +26,7 @@ interface DirectOption {
   value: string;
   href: string;
   external?: boolean;
-  /** Email option: copy-on-click link plus an "Open in Gmail" fallback. */
+  /** Email option: rendered as a Gmail compose link. */
   email?: string;
 }
 
@@ -91,17 +91,7 @@ export default function ContactPage() {
                     <div className="min-w-0">
                       <p className="text-sm text-foreground/50">{o.label}</p>
                       {o.email ? (
-                        <>
-                          <EmailLink email={o.email} className="break-words text-sm font-medium text-foreground/90 underline decoration-foreground/30 underline-offset-4 hover:text-foreground hover:decoration-foreground/60 transition-colors duration-fast" />
-                          <a
-                            href={gmailComposeHref(o.email)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="mt-1.5 block text-xs text-foreground/50 hover:text-foreground transition-colors duration-fast"
-                          >
-                            Open in Gmail ↗<span className="sr-only"> (opens in a new tab)</span>
-                          </a>
-                        </>
+                        <EmailLink email={o.email} className="break-words text-sm font-medium text-foreground/90 underline decoration-foreground/30 underline-offset-4 hover:text-foreground hover:decoration-foreground/60 transition-colors duration-fast" />
                       ) : (
                         <a
                           href={o.href}
