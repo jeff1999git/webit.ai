@@ -13,7 +13,6 @@ interface StaggerContainerProps extends HTMLMotionProps<"div"> {
 /**
  * StaggerContainer — parent that staggers its children's animations.
  * Children must use any animation variant (FadeIn, SlideUp, etc).
- * Future: orchestrate complex multi-layer reveal sequences here.
  */
 export function StaggerContainer({
   children,

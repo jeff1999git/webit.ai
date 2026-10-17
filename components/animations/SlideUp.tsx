@@ -11,7 +11,6 @@ interface SlideUpProps extends HTMLMotionProps<"div"> {
 
 /**
  * SlideUp — content rises into view from below.
- * Future: replace y offset with clip-path mask reveal for premium effect.
  */
 export function SlideUp({ children, delay = 0, className, ...rest }: SlideUpProps) {
   const transition = VARIANTS.slideUp.visible.transition;

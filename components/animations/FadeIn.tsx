@@ -11,7 +11,6 @@ interface FadeInProps extends HTMLMotionProps<"div"> {
 
 /**
  * FadeIn — lightweight opacity reveal.
- * Future: add blur, scale, or colour-shift variants.
  */
 export function FadeIn({ children, delay = 0, className, ...rest }: FadeInProps) {
   const transition = VARIANTS.fadeIn.visible.transition;
